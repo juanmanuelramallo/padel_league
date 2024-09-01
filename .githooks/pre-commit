@@ -2,6 +2,11 @@
 
 staged_files = `git diff --cached --name-only --diff-filter=AMR | egrep '\.rb$|\.rake$'`.split("\n")
 
+if staged_files.empty?
+  puts "No ruby files to check."
+  exit 0
+end
+
 command = "./bin/rubocop -f github #{staged_files.join(' ')}"
 puts "Running rubocop"
 output = `#{command}`
