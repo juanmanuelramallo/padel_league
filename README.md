@@ -1,24 +1,15 @@
-# README
+# Padel League
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Edit credentials
 
-Things you may want to cover:
+### Production
 
-* Ruby version
+```bash
+RAILS_ENV=production bundle exec rails credentials:edit
+```
 
-* System dependencies
+### Development
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```bash
+RAILS_ENV=development bundle exec rails credentials:edit
+```
