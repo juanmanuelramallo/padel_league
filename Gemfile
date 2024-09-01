@@ -25,6 +25,7 @@ end
 
 group :development do
   gem "annotate"
+  gem "chusaku", require: false
   gem "web-console"
 end
 

@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+staged_files = `git diff --cached --name-only --diff-filter=AMR | egrep '\.rb$|\.rake$'`.split("\n")
+
+command = "./bin/rubocop -f github #{staged_files.join(' ')}"
+puts "Running rubocop"
+output = `#{command}`
+
+if $?.exitstatus != 0
+  puts output
+  `echo "#{command} -A" | pbcopy`
+  puts "Rubocop failed. Please fix the errors before committing."
+  exit 1
+else
+  puts "Rubocop passed."
+end
+
+command = "bundle exec chusaku"
+puts "Running chusaku"
+output = `#{command}`
+
+if $?.exitstatus != 0
+  puts output
+  puts "Chusaku failed. Please fix the errors before committing."
+  exit 1
+else
+  puts "Chusaku passed."
+end
+
+exit 0
