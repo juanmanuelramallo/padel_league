@@ -10,9 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_01_171157) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_01_185326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.bigint "location_id", null: false
+    t.datetime "played_at", null: false
+    t.bigint "team_1_id", null: false
+    t.bigint "team_2_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index [ "location_id" ], name: "index_matches_on_location_id"
+    t.index [ "team_1_id" ], name: "index_matches_on_team_1_id"
+    t.index [ "team_2_id" ], name: "index_matches_on_team_2_id"
+  end
 
   create_table "players", force: :cascade do |t|
     t.string "name", null: false
@@ -22,4 +40,38 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_01_171157) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "score_sets", force: :cascade do |t|
+    t.bigint "match_id", null: false
+    t.integer "score_1", null: false
+    t.integer "score_2", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index [ "match_id" ], name: "index_score_sets_on_match_id"
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.bigint "location_id", null: false
+    t.datetime "played_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index [ "location_id" ], name: "index_sessions_on_location_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.bigint "player_1_id", null: false
+    t.bigint "player_2_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index [ "player_1_id" ], name: "index_teams_on_player_1_id"
+    t.index [ "player_2_id" ], name: "index_teams_on_player_2_id"
+  end
+
+  add_foreign_key "matches", "locations"
+  add_foreign_key "matches", "teams", column: "team_1_id"
+  add_foreign_key "matches", "teams", column: "team_2_id"
+  add_foreign_key "score_sets", "matches"
+  add_foreign_key "sessions", "locations"
+  add_foreign_key "teams", "players", column: "player_1_id"
+  add_foreign_key "teams", "players", column: "player_2_id"
 end
