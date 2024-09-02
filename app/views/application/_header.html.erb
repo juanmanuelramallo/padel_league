@@ -3,10 +3,10 @@
   { name: "Nuevo Partido", path: new_match_path, icon: "plus-circle" }
 ] %>
 
-<div class="flex flex-row gap-2 py-1">
+<div class="flex flex-row mb-2 border-b border-gray-900 bg-gray-50">
   <% links.each do |link| %>
-    <%= link_to link[:path], title: link[:name], class: "bg-gray-100 p-3" do %>
-      <%= inline_svg_tag "icons/#{link[:icon]}.svg", class: "w-6 h-6" %>
+    <%= link_to link[:path], title: link[:name], class: "p-3 btn btn-secondary border-b-0 border-r-0 last:border-r" do %>
+      <%= inline_svg_tag "icons/#{link[:icon]}.svg", class: "w-8 h-8" %>
     <% end %>
   <% end %>
 </div>

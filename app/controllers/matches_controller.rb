@@ -1,6 +1,8 @@
 class MatchesController < ApplicationController
   include Authenticate
 
+  skip_before_action :authenticate_player!, only: [ :index, :show ]
+
   # @route GET /matches (matches)
   # @route GET / (root)
   def index
@@ -59,6 +61,13 @@ class MatchesController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  # @route DELETE /matches/:id (match)
+  def destroy
+    @match = Match.find(params[:id])
+    @match.destroy!
+    redirect_to matches_path, notice: "Partido eliminado"
   end
 
   private
