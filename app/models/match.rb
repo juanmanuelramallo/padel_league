@@ -23,11 +23,11 @@
 #  fk_rails_...  (team_2_id => teams.id)
 #
 class Match < ApplicationRecord
-  accepts_nested_attributes_for :location
-
   belongs_to :location
   belongs_to :team_1
   belongs_to :team_2
 
   validates :played_at, presence: true
+
+  accepts_nested_attributes_for :location
 end

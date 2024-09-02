@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 
-staged_files = `git diff --cached --name-only --diff-filter=AMR | egrep '\.rb$|\.rake$'`.split("\n")
+staged_files = `
+  git diff --cached --name-only --diff-filter=AMR |
+  egrep '\\.rb$|\\.rake$'
+`
+staged_files = staged_files.split("\n")
 
 if staged_files.empty?
   puts "No ruby files to check."
