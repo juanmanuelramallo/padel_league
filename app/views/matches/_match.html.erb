@@ -2,7 +2,12 @@
   <%= render "match_header", match: match %>
   <div class="grid grid-cols-2 gap-2 w-full">
     <div class="flex flex-col gap-2">
-      <h2 class="font-semibold">Team A</h2>
+      <h2 class="font-semibold flex flex-row gap-2">
+        Team A
+        <% if match.team_1_won? %>
+          <%= inline_svg_tag "icons/trophy.svg", class: "w-6 h-6 fill-yellow-400" %>
+        <% end %>
+      </h2>
 
       <p>
         <%= match.team_1.player_1.name %>
@@ -12,7 +17,12 @@
       </p>
     </div>
     <div class="flex flex-col gap-2">
-      <h2 class="font-semibold">Team B</h2>
+      <h2 class="font-semibold flex flex-row gap-2">
+        Team B
+        <% if match.team_2_won? %>
+          <%= inline_svg_tag "icons/trophy.svg", class: "w-6 h-6 fill-yellow-400" %>
+        <% end %>
+      </h2>
 
       <p>
         <%= match.team_2.player_1.name %>

@@ -35,4 +35,12 @@ class Match < ApplicationRecord
   accepts_nested_attributes_for :team_1
   accepts_nested_attributes_for :team_2
   accepts_nested_attributes_for :score_sets, allow_destroy: true
+
+  def team_1_won?
+    score_sets.count { |score_set| score_set.score_1 > score_set.score_2 } > score_sets.size / 2
+  end
+
+  def team_2_won?
+    score_sets.count { |score_set| score_set.score_1 < score_set.score_2 } > score_sets.size / 2
+  end
 end

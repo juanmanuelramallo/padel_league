@@ -4,7 +4,12 @@ class MatchesController < ApplicationController
   # @route GET /matches (matches)
   # @route GET / (root)
   def index
-    @matches = Match.all
+    @matches = Match.all.includes(
+      :score_sets,
+      :location,
+      team_1: [ :player_1, :player_2 ],
+      team_2: [ :player_1, :player_2 ],
+    )
   end
 
   # @route GET /matches/:id (match)
