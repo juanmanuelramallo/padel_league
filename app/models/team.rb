@@ -19,6 +19,6 @@
 #  fk_rails_...  (player_2_id => players.id)
 #
 class Team < ApplicationRecord
-  belongs_to :player_1
-  belongs_to :player_2
+  belongs_to :player_1, class_name: "Player"
+  belongs_to :player_2, class_name: "Player"
 end

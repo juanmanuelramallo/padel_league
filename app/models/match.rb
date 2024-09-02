@@ -24,8 +24,8 @@
 #
 class Match < ApplicationRecord
   belongs_to :location
-  belongs_to :team_1
-  belongs_to :team_2
+  belongs_to :team_1, class_name: "Team"
+  belongs_to :team_2, class_name: "Team"
 
   validates :played_at, presence: true
 
