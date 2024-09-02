@@ -1,0 +1,12 @@
+<% links = [
+  { name: "Partidos", path: root_path, icon: "home" },
+  { name: "Nuevo Partido", path: new_match_path, icon: "plus-circle" }
+] %>
+
+<div class="flex flex-row gap-2 py-1">
+  <% links.each do |link| %>
+    <%= link_to link[:path], title: link[:name], class: "bg-gray-100 p-3" do %>
+      <%= inline_svg_tag "icons/#{link[:icon]}.svg", class: "w-6 h-6" %>
+    <% end %>
+  <% end %>
+</div>

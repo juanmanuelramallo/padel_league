@@ -18,7 +18,10 @@
 #  fk_rails_...  (match_id => matches.id)
 #
 class ScoreSet < ApplicationRecord
+  attribute :rank, :integer
   belongs_to :match
 
   validates :score_1, :score_2, presence: true
+
+  default_scope { select("rank() over (order by created_at) as rank, *").order(:created_at) }
 end

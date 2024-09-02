@@ -7,39 +7,51 @@ class MatchesController < ApplicationController
     @matches = Match.all
   end
 
+  def show
+    @match = Match.find(params[:id])
+  end
+
   # @route GET /matches/new (new_match)
   def new
     @match = Match.new(default_params)
+    @match.build_team_1
+    @match.build_team_2
+    @match.score_sets.build([ {} ] * 5)
   end
 
   # @route POST /matches (matches)
   def create
-    @match = Match.new(match_params.slice(:played_at, :location_id))
+    @match = Match.new(data)
     team_1, team_2 = find_or_initialize_teams
     @match.team_1 = team_1
     @match.team_2 = team_2
 
     if @match.save
-      redirect_to matches_path
+      redirect_to @match
     else
       render :new, status: :unprocessable_entity
     end
   end
 
+  # @route GET /matches/:id/edit (edit_match)
   def edit
     @match = Match.find(params[:id])
+    @match.score_sets.build([ {} ] * 5)
   end
 
+  # @route PATCH /matches/:id (match)
+  # @route PUT /matches/:id (match)
   def update
     @match = Match.find(params[:id])
     team_1, team_2 = find_or_initialize_teams
     @match.team_1 = team_1
     @match.team_2 = team_2
+    @match.assign_attributes(data)
 
     if @match.save
-      redirect_to matches_path
+      redirect_to @match
     else
-      render :new, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -70,7 +82,14 @@ class MatchesController < ApplicationController
       :played_at,
       :location_id,
       team_1_attributes: [ :player_1_id, :player_2_id ],
-      team_2_attributes: [ :player_1_id, :player_2_id ]
+      team_2_attributes: [ :player_1_id, :player_2_id ],
+      score_sets_attributes: [ :id, :score_1, :score_2, :_destroy ]
     )
+  end
+
+  def data
+    data = match_params.slice(:played_at, :location_id, :score_sets_attributes)
+    data[:score_sets_attributes].reject! { |_, v| v[:score_1].blank? && v[:score_2].blank? }
+    data
   end
 end

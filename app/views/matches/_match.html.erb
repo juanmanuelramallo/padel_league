@@ -1,12 +1,59 @@
-<%= link_to edit_match_path(match), class: "bg-gray-100 p-2" do %>
-  <div class="grid grid-cols-2 gap-2">
+<div class="flex flex-col gap-2 py-4">
+  <%= render "match_header", match: match %>
+  <div class="grid grid-cols-2 gap-2 w-full">
     <div class="flex flex-col gap-2">
-      <p class="font-semibold truncate"><%= match.team_1.player_1.name %></p>
-      <p class="font-semibold truncate"><%= match.team_1.player_2.name %></p>
+      <h2 class="font-semibold">Team A</h2>
+
+      <p>
+        <%= match.team_1.player_1.name %>
+      </p>
+      <p>
+        <%= match.team_1.player_2.name %>
+      </p>
     </div>
     <div class="flex flex-col gap-2">
-      <p class="font-semibold truncate"><%= match.team_2.player_1.name %></p>
-      <p class="font-semibold truncate"><%= match.team_2.player_2.name %></p>
+      <h2 class="font-semibold">Team B</h2>
+
+      <p>
+        <%= match.team_2.player_1.name %>
+      </p>
+      <p>
+        <%= match.team_2.player_2.name %>
+      </p>
     </div>
   </div>
-<% end %>
+
+  <div class="grid grid-cols-2 gap-2 w-full">
+    <div class="flex flex-col gap-2">
+      <h2 class="font-semibold">Lugar</h2>
+
+      <%= match.location.name %>
+    </div>
+    <div class="flex flex-col gap-2">
+      <h2 class="font-semibold">Fecha</h2>
+
+      <%= l match.played_at, format: :short %>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <h2 class="font-semibold">Sets</h2>
+
+    <% if match.score_sets.empty? %>
+      <p class="text-gray-400">No hay sets</p>
+    <% end %>
+
+    <% match.score_sets.each do |score_set| %>
+      <div class="grid grid-cols-4 gap-8 w-full">
+        <span class="text-gray-400 my-auto">#<%= score_set.rank %></span>
+        <span class="text-right">
+          <%= score_set.score_1 %>
+        </span>
+        <span class="text-left">
+          <%= score_set.score_2 %>
+        </span>
+        <span</span>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
 gem "importmap-rails"
+gem "inline_svg"
 gem "jbuilder"
 gem "madmin"
 gem "pg", "~> 1.1"

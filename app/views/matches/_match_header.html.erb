@@ -1,0 +1,13 @@
+<% links = [
+  { name: "Ver", path: match_path(match), icon: "link" },
+  { name: "Editar", path: edit_match_path(match), icon: "pencil-square" },
+  { name: "Eliminar", path: match_path(match), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, icon: "trash" }
+] %>
+
+<div class="flex flex-row justify-around gap-4">
+  <% links.each do |link| %>
+    <%= link_to link[:path], title: link[:name], data: link[:data], class: "w-full" do %>
+      <%= inline_svg_tag "icons/#{link[:icon]}.svg", class: "w-6 h-6 mx-auto" %>
+    <% end %>
+  <% end %>
+</div>
