@@ -6,8 +6,8 @@
 
 <div class="flex flex-row justify-around gap-4">
   <% links.each do |link| %>
-    <%= link_to link[:path], title: link[:name], data: link[:data], class: "w-full" do %>
-      <%= inline_svg_tag "icons/#{link[:icon]}.svg", class: "w-6 h-6 mx-auto" %>
+    <%= link_to link[:path], title: link[:name], data: link[:data], class: "w-full h-10 flex flex-col justify-center" do %>
+      <%= inline_svg_tag "icons/#{link[:icon]}.svg", class: "w-6 h-6 m-auto" %>
     <% end %>
   <% end %>
 </div>

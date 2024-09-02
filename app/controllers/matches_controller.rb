@@ -7,6 +7,7 @@ class MatchesController < ApplicationController
     @matches = Match.all
   end
 
+  # @route GET /matches/:id (match)
   def show
     @match = Match.find(params[:id])
   end
