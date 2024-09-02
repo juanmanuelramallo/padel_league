@@ -1,5 +1,7 @@
 # Padel League
 
+[![CI](https://github.com/juanmanuelramallo/padel_league/actions/workflows/ci.yml/badge.svg)](https://github.com/juanmanuelramallo/padel_league/actions/workflows/ci.yml)
+
 ## Edit credentials
 
 ### Production
