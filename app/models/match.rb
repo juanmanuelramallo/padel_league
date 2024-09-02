@@ -29,5 +29,5 @@ class Match < ApplicationRecord
 
   validates :played_at, presence: true
 
-  accepts_nested_attributes_for :location
+  accepts_nested_attributes_for :location, allow_destroy: true
 end
