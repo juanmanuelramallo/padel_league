@@ -1,0 +1,12 @@
+<%= link_to edit_match_path(match), class: "bg-gray-100 p-2" do %>
+  <div class="grid grid-cols-2 gap-2">
+    <div class="flex flex-col gap-2">
+      <p class="font-semibold truncate"><%= match.team_1.player_1.name %></p>
+      <p class="font-semibold truncate"><%= match.team_1.player_2.name %></p>
+    </div>
+    <div class="flex flex-col gap-2">
+      <p class="font-semibold truncate"><%= match.team_2.player_1.name %></p>
+      <p class="font-semibold truncate"><%= match.team_2.player_2.name %></p>
+    </div>
+  </div>
+<% end %>
