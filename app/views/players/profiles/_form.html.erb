@@ -1,0 +1,9 @@
+<%= form_with model: player, url: players_profiles_path do |f| %>
+  <div class="flex flex-col gap-2 py-4">
+    <%= f.text_field :name, placeholder: "Nombre" %>
+    <%= f.email_field :email, placeholder: "Email" %>
+    <%= f.phone_field :phone, placeholder: "Teléfono" %>
+
+    <%= f.submit "Guardar", class: "mt-2 btn btn-primary" %>
+  </div>
+<% end %>
