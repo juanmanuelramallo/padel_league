@@ -1,0 +1,20 @@
+<div class="py-2 grid grid-cols-4">
+  <div class="col-span-3">
+    <h2 class="font-semibold"><%= invitee.name %></h2>
+    <p class="text-sm text-gray-500"><%= invitee.email.presence || '—' %></p>
+    <p class="text-sm text-gray-500"><%= invitee.phone.presence || '—' %></p>
+    <p class="text-sm text-gray-500"><%= invitee.confirmed_at.present? ? 'Confirmado' : 'Pendiente' %></p>
+  </div>
+
+  <div class="flex flex-col gap-0.5">
+    <%= link_to players_invitee_path(invitee), class: "mx-auto p-1" do %>
+      <%= inline_svg_tag "icons/eye.svg", class: "w-6 h-6" %>
+    <% end %>
+    <%= link_to edit_players_invitee_path(invitee), class: "mx-auto p-1" do %>
+      <%= inline_svg_tag "icons/pencil-square.svg", class: "w-6 h-6" %>
+    <% end %>
+    <%= link_to players_invitee_path(invitee), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, class: "mx-auto p-1" do %>
+      <%= inline_svg_tag "icons/trash.svg", class: "w-6 h-6" %>
+    <% end %>
+  </div>
+</div>

@@ -9,7 +9,8 @@ Rails.application.routes.draw do
 
   namespace :players do
     resource :session, only: [ :new, :create, :destroy ]
-    resources :profiles, only: [ :show, :new, :create ]
+    resources :profiles, only: [ :show ]
+    resources :invitees
   end
 
   resources :matches

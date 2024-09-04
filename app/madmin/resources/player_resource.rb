@@ -4,6 +4,7 @@ class PlayerResource < Madmin::Resource
   attribute :name
   attribute :phone
   attribute :email
+  attribute :confirmed_at
   attribute :created_at, form: false
   attribute :updated_at, form: false
   attribute :password, index: false, show: false

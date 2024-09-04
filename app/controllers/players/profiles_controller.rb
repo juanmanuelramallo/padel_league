@@ -5,16 +5,17 @@ module Players
       @player = Player.find(params[:id])
     end
 
-    # @route GET /players/profiles/new (new_players_profile)
     def new
       @player = Player.new
     end
 
-    # @route POST /players/profiles (players_profiles)
     def create
       @player = Player.new(player_params)
 
       if @player.save
+        @player.inviters_invite = Invite.new(inviter: @player)
+        @player.inviters_invite.save!
+
         redirect_to players_profile_path(@player)
       else
         render :new, status: :unprocessable_entity

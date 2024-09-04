@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_01_185326) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_04_012933) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "invites", force: :cascade do |t|
+    t.bigint "invitee_id", null: false
+    t.bigint "inviter_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index [ "invitee_id" ], name: "index_invites_on_invitee_id"
+    t.index [ "inviter_id" ], name: "index_invites_on_inviter_id"
+  end
 
   create_table "locations", force: :cascade do |t|
     t.string "name", null: false
@@ -39,6 +48,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_01_185326) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "confirmed_at", precision: nil
   end
 
   create_table "score_sets", force: :cascade do |t|
@@ -67,6 +77,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_01_185326) do
     t.index [ "player_2_id" ], name: "index_teams_on_player_2_id"
   end
 
+  add_foreign_key "invites", "players", column: "invitee_id"
+  add_foreign_key "invites", "players", column: "inviter_id"
   add_foreign_key "matches", "locations"
   add_foreign_key "matches", "teams", column: "team_1_id"
   add_foreign_key "matches", "teams", column: "team_2_id"
