@@ -11,7 +11,7 @@ class MatchesController < ApplicationController
       :location,
       team_1: [ :player_1, :player_2 ],
       team_2: [ :player_1, :player_2 ],
-    )
+    ).order(created_at: :asc)
   end
 
   # @route GET /matches/:id (match)
