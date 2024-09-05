@@ -1,0 +1,15 @@
+<%= form_with model: player, url: players_profile_path do |f| %>
+  <div class="flex flex-col gap-2 py-4">
+    <%= f.text_field :name, placeholder: "Nombre" %>
+    <%= f.password_field :password, placeholder: "Nueva contraseña" %>
+    <%= f.password_field :password_confirmation, placeholder: "Confirmar contraseña" %>
+    <%= f.email_field :email, placeholder: "Email", readonly: true %>
+    <%= f.phone_field :phone, placeholder: "Teléfono", readonly: true %>
+    <p class="text-gray-900 text-sm">Mandá un mensaje al administrador para modificar el email o el teléfono.</p>
+
+    <div class="grid grid-cols-2 gap-2">
+      <%= link_to "Cancelar", players_profile_path, class: "btn btn-secondary" %>
+      <%= f.submit "Guardar", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resource :session, only: [ :new, :create, :destroy ]
     resources :invitees
     resources :confirmations, only: [ :show ]
+    resource :profile, only: [ :show, :edit, :update ]
   end
 
   resources :matches

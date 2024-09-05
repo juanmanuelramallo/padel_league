@@ -1,9 +1,15 @@
-<div>
-  <% if flash[:notice] %>
-    <%= flash[:notice] %>
-  <% end %>
+<% if flash[:notice] %>
+  <div class="bg-black text-white w-full py-1">
+    <p class="mx-5">
+      <%= flash[:notice] %>
+    </p>
+  </div>
+<% end %>
 
-  <% if flash[:alert] %>
-    <%= flash[:alert] %>
-  <% end %>
-</div>
+<% if flash[:alert] %>
+  <div class="bg-orange-600 text-white w-full py-1">
+    <p class="mx-5">
+      <%= flash[:alert] %>
+    </p>
+  </div>
+<% end %>

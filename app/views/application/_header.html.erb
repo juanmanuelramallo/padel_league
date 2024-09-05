@@ -1,11 +1,11 @@
 <% links = [
   { name: "Partidos", path: root_path, icon: "home" },
   { name: "Nuevo Partido", path: new_match_path, icon: "plus-circle" },
-  { name: "Nuevo Jugador", path: new_players_invitee_path, icon: "user-plus" },
-  { name: "Invitados", path: players_invitees_path, icon: "users" }
+  { name: "Invitados", path: players_invitees_path, icon: "users" },
+  { name: "Perfil", path: players_profile_path, icon: "user-circle" }
 ] %>
 
-<div class="flex flex-row mb-2 border-b border-gray-900 bg-gray-50">
+<div class="flex flex-row border-b border-gray-900 bg-gray-50">
   <% links.each do |link| %>
     <%= link_to link[:path], title: link[:name], class: "p-3 btn btn-secondary border-b-0 border-r-0 last:border-r" do %>
       <%= inline_svg_tag "icons/#{link[:icon]}.svg", class: "w-8 h-8" %>
