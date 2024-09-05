@@ -2,6 +2,7 @@ module Players
   class ConfirmationsController < ApplicationController
     skip_before_action :authenticate_player!
 
+    # @route GET /players/confirmations/:id (players_confirmation)
     def show
       @player = Player.find_by(confirmation_token: params[:id])
 
