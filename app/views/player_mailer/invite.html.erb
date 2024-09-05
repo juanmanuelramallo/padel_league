@@ -1,0 +1,7 @@
+<h1><%= @inviter.name %> te invitó a unirte a Padel League</h1>
+
+<p>Para unirte a Padel League, haz click en el siguiente enlace:</p>
+
+<%= link_to "Aceptar invitación", players_confirmation_url(@invitee.confirmation_token) %>
+
+<p>Proceda!</p>

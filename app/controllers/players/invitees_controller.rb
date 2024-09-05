@@ -8,6 +8,17 @@ module Players
     # @route GET /players/invitees/:id (players_invitee)
     def show
       @invitee = current_player.invitees.find(params[:id])
+
+      if @invitee.confirmed_at.blank?
+        @qr = RQRCode::QRCode.new(players_confirmation_url(@invitee.confirmation_token), size: 10)
+          .as_svg(
+            color: "000",
+            shape_rendering: "crispEdges",
+            module_size: 6,
+            standalone: true,
+            use_path: true
+          )
+      end
     end
 
     # @route GET /players/invitees/new (new_players_invitee)
@@ -22,10 +33,14 @@ module Players
 
     # @route POST /players/invitees (players_invitees)
     def create
-      @player = Player.new(player_params)
+      @player = Player.new(player_params.merge(confirmation_token:))
 
       if @player.save
         Invite.create!(inviter: current_player, invitee: @player)
+        PlayerMailer.with(
+          inviter: current_player,
+          invitee: @player
+        ).invite.deliver_later
 
         redirect_to players_invitee_path(@player), status: :see_other
       else
@@ -61,6 +76,10 @@ module Players
 
     def player_params
       params.require(:player).permit(:name, :email, :phone)
+    end
+
+    def confirmation_token
+      SecureRandom.urlsafe_base64
     end
   end
 end

@@ -1,3 +1,13 @@
 <h1 class="text-xl font-bold">Invitado #<%= @invitee.id %></h1>
 
 <%= render "invitee", invitee: @invitee %>
+
+<% if @qr.present? %>
+  <div class="py-2 mx-auto">
+    <p class="text-gray-900">Comparte este QR con tu compa para que cree su cuenta:</p>
+
+    <div class="flex flex-row justify-center">
+      <%= raw @qr %>
+    </div>
+  </div>
+<% end %>

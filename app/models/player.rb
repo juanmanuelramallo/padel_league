@@ -2,14 +2,19 @@
 #
 # Table name: players
 #
-#  id              :bigint           not null, primary key
-#  confirmed_at    :datetime
-#  email           :string
-#  name            :string           not null
-#  password_digest :string
-#  phone           :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id                 :bigint           not null, primary key
+#  confirmation_token :string
+#  confirmed_at       :datetime
+#  email              :string
+#  name               :string           not null
+#  password_digest    :string
+#  phone              :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+# Indexes
+#
+#  index_players_on_confirmation_token  (confirmation_token) UNIQUE
 #
 class Player < ApplicationRecord
   has_secure_password :password, validations: false

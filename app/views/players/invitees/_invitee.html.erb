@@ -7,13 +7,13 @@
   </div>
 
   <div class="flex flex-col gap-0.5">
-    <%= link_to players_invitee_path(invitee), class: "mx-auto p-1" do %>
+    <%= link_to players_invitee_path(invitee), class: "ml-auto p-1" do %>
       <%= inline_svg_tag "icons/eye.svg", class: "w-6 h-6" %>
     <% end %>
-    <%= link_to edit_players_invitee_path(invitee), class: "mx-auto p-1" do %>
+    <%= link_to edit_players_invitee_path(invitee), class: "ml-auto p-1" do %>
       <%= inline_svg_tag "icons/pencil-square.svg", class: "w-6 h-6" %>
     <% end %>
-    <%= link_to players_invitee_path(invitee), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, class: "mx-auto p-1" do %>
+    <%= link_to players_invitee_path(invitee), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, class: "ml-auto p-1" do %>
       <%= inline_svg_tag "icons/trash.svg", class: "w-6 h-6" %>
     <% end %>
   </div>
