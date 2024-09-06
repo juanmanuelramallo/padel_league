@@ -1,13 +1,28 @@
-<% links = [
-  { name: "Ver", path: match_path(match), icon: "link" },
-  { name: "Editar", path: edit_match_path(match), icon: "pencil-square" },
-  { name: "Eliminar", path: match_path(match), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, icon: "trash" }
-] %>
+<% link_class = "w-full h-10 flex flex-col justify-center" %>
+<% svg_class = "w-6 h-6 m-auto" %>
 
 <div class="flex flex-row justify-around gap-4">
-  <% links.each do |link| %>
-    <%= link_to link[:path], title: link[:name], data: link[:data], class: "w-full h-10 flex flex-col justify-center" do %>
-      <%= inline_svg_tag "icons/#{link[:icon]}.svg", class: "w-6 h-6 m-auto" %>
+  <%= link_to match_path(match), class: link_class, title: "Ver" do %>
+    <%= inline_svg_tag "icons/eye.svg", class: svg_class %>
+  <% end %>
+  <div data-controller="clipboard"
+       class="<%= link_class %>"
+       data-clipboard-success-content-value="✅">
+    <input type="hidden" value="<%= match_url(match) %>" data-clipboard-target="source" />
+    <%= link_to match_path(match),
+      class: "text-center",
+      title: "Ver",
+      data: {
+        action: "clipboard#copy",
+        "clipboard-target": "button",
+      } do %>
+      <%= inline_svg_tag "icons/link.svg", class: svg_class %>
     <% end %>
+  </div>
+  <%= link_to edit_match_path(match), class: link_class, title: "Editar" do %>
+    <%= inline_svg_tag "icons/pencil-square.svg", class: svg_class %>
+  <% end %>
+  <%= link_to match_path(match), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, class: link_class, title: "Eliminar" do %>
+    <%= inline_svg_tag "icons/trash.svg", class: svg_class %>
   <% end %>
 </div>

@@ -53,9 +53,9 @@
       <p class="text-gray-400">No hay sets</p>
     <% end %>
 
-    <% match.score_sets.each do |score_set| %>
+    <% match.score_sets.each.with_index(1) do |score_set, index| %>
       <div class="grid grid-cols-4 gap-8 w-full">
-        <span class="text-gray-400 my-auto">#<%= score_set.rank %></span>
+        <span class="text-gray-400 my-auto">#<%= index %></span>
         <span class="text-right">
           <%= score_set.score_1 %>
         </span>

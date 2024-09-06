@@ -23,5 +23,5 @@ class ScoreSet < ApplicationRecord
 
   validates :score_1, :score_2, presence: true
 
-  default_scope { select("rank() over (order by created_at) as rank, *").order(:created_at) }
+  scope :with_rank, -> { select("rank() over (order by created_at) as rank, *").order(:created_at) }
 end

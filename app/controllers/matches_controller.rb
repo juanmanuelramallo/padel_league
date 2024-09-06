@@ -11,7 +11,7 @@ class MatchesController < ApplicationController
       :location,
       team_1: [ :player_1, :player_2 ],
       team_2: [ :player_1, :player_2 ],
-    ).order(created_at: :asc)
+    ).order(played_at: :desc)
   end
 
   # @route GET /matches/:id (match)
@@ -44,6 +44,7 @@ class MatchesController < ApplicationController
   # @route GET /matches/:id/edit (edit_match)
   def edit
     @match = Match.find(params[:id])
+    @match.score_sets = @match.score_sets.with_rank
     @match.score_sets.build([ {} ] * 5)
   end
 
@@ -54,6 +55,7 @@ class MatchesController < ApplicationController
     team_1, team_2 = find_or_initialize_teams
     @match.team_1 = team_1
     @match.team_2 = team_2
+    @match.score_sets = @match.score_sets.with_rank
     @match.assign_attributes(data)
 
     if @match.save
