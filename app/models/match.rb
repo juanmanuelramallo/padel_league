@@ -27,8 +27,8 @@ class Match < ApplicationRecord
   belongs_to :team_1, class_name: "Team"
   belongs_to :team_2, class_name: "Team"
 
-  has_many :score_sets
-  has_many :match_players
+  has_many :score_sets, dependent: :destroy
+  has_many :match_players, dependent: :destroy
   has_many :players, through: :match_players
 
   validates :played_at, presence: true
