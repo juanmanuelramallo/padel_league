@@ -22,4 +22,8 @@
   .field_with_errors .input{
     @apply border-red-700;
   }
+
+  select, input {
+    @apply w-full !rounded-sm;
+  }
 }
