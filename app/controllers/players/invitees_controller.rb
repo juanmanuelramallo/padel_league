@@ -36,10 +36,10 @@ module Players
           inviter: current_player,
           invitee: @player
         ).invite.deliver_later if @player.email.present?
-        Friendship.create!(player_1: current_player, player_2: @player, accepted_at: Time.zone.now)
+        friendship = Friendship.create!(player_1: current_player, player_2: @player, accepted_at: Time.zone.now)
         Friendship.create!(player_1: @player, player_2: current_player, accepted_at: Time.zone.now)
 
-        redirect_to players_invitee_path(@player), status: :see_other
+        redirect_to players_friendship_path(friendship), status: :see_other
       else
         render :new, status: :unprocessable_entity
       end

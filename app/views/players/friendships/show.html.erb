@@ -19,14 +19,14 @@
 <% if @qr.present? %>
   <div class="py-2 mx-auto">
     <p class="text-gray-900 mb-2">
-      Le hemos enviado un mail a tu compa, o puedes compartirle este QR para que termine de crear su cuenta:
+      Si asignaste un mail, le hemos enviado un mail a tu compa, o puedes compartirle este QR para que termine de crear su cuenta:
     </p>
 
     <div data-controller="clipboard"
          class="p-2 border border-gray-300 rounded-md mb-2 overflow-hidden"
          data-clipboard-success-content-value="Copiado!">
       <input type="hidden" value="<%= @qr_url %>" data-clipboard-target="source" />
-      <button class="flex flex-row" data-action="clipboard#copy" data-clipboard-target="button">
+      <button class="flex flex-row truncate break-keep" data-action="clipboard#copy" data-clipboard-target="button">
         <%= inline_svg_tag "icons/link.svg", class: "h-6 w-6 mr-1" %>
         <%= @qr_url %>
       </button>
