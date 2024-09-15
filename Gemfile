@@ -6,7 +6,7 @@ gem "importmap-rails"
 gem "inline_svg"
 gem "jbuilder"
 gem "madmin"
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.5"
 gem "puma", ">= 5.0"
 gem "rails", "~> 7.2.1"
 gem 'rails-i18n', '~> 7.0.0'
