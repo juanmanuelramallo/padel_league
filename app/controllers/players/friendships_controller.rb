@@ -1,5 +1,6 @@
 module Players
   class FriendshipsController < ApplicationController
+    # @route GET /players/friendships (players_friendships)
     def index
       @friendships = current_player
         .friendships
@@ -16,6 +17,7 @@ module Players
     end
 
     # Request a friendship
+    # @route POST /players/friendships (players_friendships)
     def create
       @friendships = [
         Friendship.new(
@@ -42,6 +44,8 @@ module Players
     end
 
     # Accept a friend request
+    # @route PATCH /players/friendships/:id (players_friendship)
+    # @route PUT /players/friendships/:id (players_friendship)
     def update
       @friendship = Friendship
         .where(player_2: current_player, accepted_at: nil)
@@ -54,6 +58,7 @@ module Players
       end
     end
 
+    # @route GET /players/friendships/:id (players_friendship)
     def show
       @friendship = current_player
         .friendships

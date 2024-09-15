@@ -1,6 +1,5 @@
 module Players
   class InviteesController < ApplicationController
-    # @route GET /players/invitees/:id (players_invitee)
     def show
       @invitee = current_player.invitees.find(params[:id])
 
