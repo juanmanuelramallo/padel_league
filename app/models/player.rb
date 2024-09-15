@@ -35,7 +35,10 @@ class Player < ApplicationRecord
     class_name: "Friendship",
     foreign_key: :player_1_id,
     dependent: :destroy
-  has_many :pending_friends, through: :pending_friendships, source: :player_2
+
+  # Matches that this player has played
+  has_many :match_players, dependent: :destroy
+  has_many :matches, through: :match_players
 
   accepts_nested_attributes_for :inviters_invite
 

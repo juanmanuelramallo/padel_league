@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_07_192426) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_15_231403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,10 +20,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_07_192426) do
     t.datetime "accepted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index [ "accepted_at" ], name: "index_friendships_on_accepted_at"
-    t.index [ "player_1_id", "player_2_id" ], name: "index_friendships_on_player_1_id_and_player_2_id", unique: true
-    t.index [ "player_1_id" ], name: "index_friendships_on_player_1_id"
-    t.index [ "player_2_id" ], name: "index_friendships_on_player_2_id"
+    t.index ["accepted_at"], name: "index_friendships_on_accepted_at"
+    t.index ["player_1_id", "player_2_id"], name: "index_friendships_on_player_1_id_and_player_2_id", unique: true
+    t.index ["player_1_id"], name: "index_friendships_on_player_1_id"
+    t.index ["player_2_id"], name: "index_friendships_on_player_2_id"
   end
 
   create_table "invites", force: :cascade do |t|
@@ -31,14 +31,24 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_07_192426) do
     t.bigint "inviter_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index [ "invitee_id" ], name: "index_invites_on_invitee_id"
-    t.index [ "inviter_id" ], name: "index_invites_on_inviter_id"
+    t.index ["invitee_id"], name: "index_invites_on_invitee_id"
+    t.index ["inviter_id"], name: "index_invites_on_inviter_id"
   end
 
   create_table "locations", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "match_players", force: :cascade do |t|
+    t.bigint "match_id", null: false
+    t.bigint "player_id", null: false
+    t.integer "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_match_players_on_match_id"
+    t.index ["player_id"], name: "index_match_players_on_player_id"
   end
 
   create_table "matches", force: :cascade do |t|
@@ -48,9 +58,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_07_192426) do
     t.bigint "team_2_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index [ "location_id" ], name: "index_matches_on_location_id"
-    t.index [ "team_1_id" ], name: "index_matches_on_team_1_id"
-    t.index [ "team_2_id" ], name: "index_matches_on_team_2_id"
+    t.index ["location_id"], name: "index_matches_on_location_id"
+    t.index ["team_1_id"], name: "index_matches_on_team_1_id"
+    t.index ["team_2_id"], name: "index_matches_on_team_2_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -62,7 +72,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_07_192426) do
     t.datetime "updated_at", null: false
     t.datetime "confirmed_at", precision: nil
     t.string "confirmation_token"
-    t.index [ "confirmation_token" ], name: "index_players_on_confirmation_token", unique: true
+    t.index ["confirmation_token"], name: "index_players_on_confirmation_token", unique: true
   end
 
   create_table "score_sets", force: :cascade do |t|
@@ -71,7 +81,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_07_192426) do
     t.integer "score_2", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index [ "match_id" ], name: "index_score_sets_on_match_id"
+    t.index ["match_id"], name: "index_score_sets_on_match_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -79,7 +89,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_07_192426) do
     t.datetime "played_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index [ "location_id" ], name: "index_sessions_on_location_id"
+    t.index ["location_id"], name: "index_sessions_on_location_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -87,14 +97,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_07_192426) do
     t.bigint "player_2_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index [ "player_1_id" ], name: "index_teams_on_player_1_id"
-    t.index [ "player_2_id" ], name: "index_teams_on_player_2_id"
+    t.index ["player_1_id"], name: "index_teams_on_player_1_id"
+    t.index ["player_2_id"], name: "index_teams_on_player_2_id"
   end
 
   add_foreign_key "friendships", "players", column: "player_1_id"
   add_foreign_key "friendships", "players", column: "player_2_id"
   add_foreign_key "invites", "players", column: "invitee_id"
   add_foreign_key "invites", "players", column: "inviter_id"
+  add_foreign_key "match_players", "matches"
+  add_foreign_key "match_players", "players"
   add_foreign_key "matches", "locations"
   add_foreign_key "matches", "teams", column: "team_1_id"
   add_foreign_key "matches", "teams", column: "team_2_id"

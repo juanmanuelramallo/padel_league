@@ -28,12 +28,15 @@ class Match < ApplicationRecord
   belongs_to :team_2, class_name: "Team"
 
   has_many :score_sets
+  has_many :match_players
+  has_many :players, through: :match_players
 
   validates :played_at, presence: true
 
   accepts_nested_attributes_for :location
   accepts_nested_attributes_for :team_1
   accepts_nested_attributes_for :team_2
+  accepts_nested_attributes_for :match_players, allow_destroy: true
   accepts_nested_attributes_for :score_sets, allow_destroy: true
 
   def team_1_won?
