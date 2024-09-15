@@ -9,6 +9,7 @@ gem "madmin"
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 gem "rails", "~> 7.2.1"
+gem 'rails-i18n', '~> 7.0.0'
 gem "redis", ">= 4.0.1"
 gem "rqrcode"
 gem "sprockets-rails"
@@ -34,4 +35,5 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
+  gem "shoulda-matchers"
 end

@@ -1,5 +1,6 @@
 # Below are the routes for madmin
 namespace :madmin do
+  resources :friendships
   resources :teams
   resources :score_sets
   resources :matches

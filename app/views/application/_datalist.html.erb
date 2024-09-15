@@ -1,0 +1,12 @@
+<%# locals: (data: {}) %>
+<% div_class = "border-t border-gray-100 py-4 sm:col-span-1 sm:px-0" %>
+<% dt_class = "text-sm font-medium leading-6 text-gray-900" %>
+<% dd_class = "mt-1 text-sm leading-6 text-gray-700 sm:mt-2 empty:w-12 empty:border empty:border-gray-200" %>
+<dl class="grid grid-cols-1 sm:grid-cols-2">
+  <% data.each do |key, value| %>
+    <div class="<%= div_class %>">
+      <dt class="<%= dt_class %>"><%= key %></dt>
+      <dd class="<%= dd_class %>"><%= value %></dd>
+    </div>
+  <% end %>
+</dl>

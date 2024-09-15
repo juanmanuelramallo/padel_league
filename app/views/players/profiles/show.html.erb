@@ -1,3 +1,8 @@
-<h1 class="text-xl font-bold">Mi perfil</h1>
+<div class="flex justify-between mt-4">
+  <h1 class="text-xl font-bold my-auto">Mi perfil</h1>
 
+  <%= link_to edit_players_profile_path, class: "ml-auto p-1" do %>
+    <%= inline_svg_tag "icons/pencil-square.svg", class: "w-6 h-6" %>
+  <% end %>
+</div>
 <%= render "profile", player: @player %>

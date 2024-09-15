@@ -1,0 +1,7 @@
+<div class="p-2 flex justify-between">
+  <%= link_to friendship.player_2.name, players_friendship_path(friendship) %>
+
+  <%= link_to players_friendship_path(friendship) do %>
+    <%= inline_svg_tag "icons/chevron-right.svg", class: "h-6 w-6" %>
+  <% end %>
+</div>

@@ -1,6 +1,20 @@
-<h1 class="text-xl font-bold">Invitado #<%= @invitee.id %></h1>
+<div class="flex justify-between mt-4">
+  <h1 class="text-xl font-bold my-auto"><%= @friend.name %></h1>
+  <% if @friend.confirmed_at.blank? %>
+    <%= link_to edit_players_invitee_path(@friend), class: "ml-auto p-1" do %>
+      <%= inline_svg_tag "icons/pencil-square.svg", class: "w-6 h-6" %>
+    <% end %>
+  <% end %>
+</div>
 
-<%= render "invitee", invitee: @invitee %>
+<div class="py-2">
+  <%= render "application/datalist", data: {
+    "Nombre": @friend.name,
+    "Email": @friend.email,
+    "Fono": @friend.phone,
+    "Cuenta": @friend.confirmed_at.present? ? 'Confirmada' : 'Pendiente'
+  } %>
+</div>
 
 <% if @qr.present? %>
   <div class="py-2 mx-auto">

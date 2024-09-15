@@ -1,0 +1,11 @@
+<%= form_with model: friendship, url: players_friendship_path(friendship) do |f| %>
+  <div class="flex flex-row justify-between">
+    <p class="text-left">
+      <%= friendship.player_2.name %>
+    </p>
+    <div class="flex flex-row justify-right">
+      <%= f.submit "Aceptar", class: "btn btn-primary" %>
+      <%= link_to "Rechazar", players_friendship_path(friendship), method: :delete, class: "btn btn-secondary" %>
+    </div>
+  </div>
+<% end %>

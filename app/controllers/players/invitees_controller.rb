@@ -1,16 +1,12 @@
 module Players
   class InviteesController < ApplicationController
-    # @route GET /players/invitees (players_invitees)
-    def index
-      @invitees = current_player.invitees
-    end
-
     # @route GET /players/invitees/:id (players_invitee)
     def show
       @invitee = current_player.invitees.find(params[:id])
 
       if @invitee.confirmed_at.blank?
-        @qr = RQRCode::QRCode.new(players_confirmation_url(@invitee.confirmation_token), size: 10)
+        @qr_url = players_confirmation_url(@invitee.confirmation_token)
+        @qr = RQRCode::QRCode.new(@qr_url, size: 10)
           .as_svg(
             color: "000",
             shape_rendering: "crispEdges",
@@ -40,7 +36,9 @@ module Players
         PlayerMailer.with(
           inviter: current_player,
           invitee: @player
-        ).invite.deliver_later
+        ).invite.deliver_later if @player.email.present?
+        Friendship.create!(player_1: current_player, player_2: @player, accepted_at: Time.zone.now)
+        Friendship.create!(player_1: @player, player_2: current_player, accepted_at: Time.zone.now)
 
         redirect_to players_invitee_path(@player), status: :see_other
       else
@@ -54,7 +52,8 @@ module Players
       @player = current_player.invitees.find(params[:id])
 
       if @player.confirmed_at.blank? && @player.update(player_params)
-        redirect_to players_invitee_path(@player), status: :see_other
+        friendship = current_player.friendships.find_by(player_2: @player)
+        redirect_to players_friendship_path(friendship), status: :see_other
       else
         render :edit, status: :unprocessable_entity
       end

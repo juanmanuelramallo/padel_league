@@ -1,14 +1,8 @@
-<div class="py-2 grid grid-cols-4">
-  <div class="col-span-3">
-    <h2 class="font-semibold"><%= player.name %></h2>
-    <p class="text-sm text-gray-500"><%= player.email.presence || '—' %></p>
-    <p class="text-sm text-gray-500"><%= player.phone.presence || '—' %></p>
-    <p class="text-sm text-gray-500"><%= player.confirmed_at.present? ? 'Confirmado' : 'Pendiente' %></p>
-  </div>
-
-  <div class="flex flex-col gap-0.5">
-    <%= link_to edit_players_profile_path, class: "ml-auto p-1" do %>
-      <%= inline_svg_tag "icons/pencil-square.svg", class: "w-6 h-6" %>
-    <% end %>
-  </div>
+<div class="py-2">
+  <%= render "application/datalist", data: {
+    "Nombre": player.name,
+    "Email": player.email,
+    "Fono": player.phone,
+    "Cuenta": player.confirmed_at.present? ? 'Confirmada' : 'Pendiente'
+  } %>
 </div>
