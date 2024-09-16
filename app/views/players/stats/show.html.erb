@@ -1,0 +1,19 @@
+<h1 class="text-xl font-bold my-auto"><%= @player.name %></h1>
+
+<%= form_with model: @player, url: players_stats_path, method: :get do |f| %>
+  <div class="flex gap-2 mt-2">
+    <%= f.date_field :from, class: "border border-gray-200 rounded-md p-2", value: @date_range.first %>
+    <%= f.date_field :to, class: "border border-gray-200 rounded-md p-2", value: @date_range.last %>
+
+    <%= f.button type: "submit", class: "btn btn-primary" do %>
+      <%= inline_svg_tag "icons/magnifying-glass.svg", class: "w-6 h-6" %>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="py-2">
+  <div class="grid grid-cols-2 gap-2">
+    <%= render "application/charts/scorecard", title: "Partidos jugados", value: @played_matches_count %>
+    <%= render "application/charts/scorecard", title: "Partidos ganados", value: @won_matches_count %>
+  </div>
+</div>

@@ -32,6 +32,11 @@ class MatchesController < ApplicationController
   # @route POST /matches (matches)
   def create
     @match = Match.new(data)
+    @match.winner_team_id = if @match.team_1_won?
+      "a"
+    elsif @match.team_2_won?
+      "b"
+    end
 
     if @match.save
       redirect_to @match
@@ -52,6 +57,11 @@ class MatchesController < ApplicationController
   def update
     @match = Match.find(params[:id])
     @match.assign_attributes(data)
+    @match.winner_team_id = if @match.team_1_won?
+      "a"
+    elsif @match.team_2_won?
+      "b"
+    end
 
     if @match.save
       redirect_to @match

@@ -2,11 +2,12 @@
 #
 # Table name: matches
 #
-#  id          :bigint           not null, primary key
-#  played_at   :datetime         not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  location_id :bigint           not null
+#  id             :bigint           not null, primary key
+#  played_at      :datetime         not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  location_id    :bigint           not null
+#  winner_team_id :integer
 #
 # Indexes
 #
@@ -34,6 +35,8 @@ class Match < ApplicationRecord
   accepts_nested_attributes_for :match_players_b, allow_destroy: true
   accepts_nested_attributes_for :score_sets_a, allow_destroy: true
   accepts_nested_attributes_for :score_sets_b, allow_destroy: true
+
+  enum :winner_team_id, MatchPlayer.team_ids, prefix: true
 
   def build_empty_match_players
     match_players_a_count = match_players_a.size
