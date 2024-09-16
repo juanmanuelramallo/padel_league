@@ -1,5 +1,6 @@
 module Players
   class StatsController < ApplicationController
+    # @route GET /players/friendships/:friendship_id/stats (players_friendship_stats)
     # @route GET /players/stats (players_stats)
     def show
       @player = if params[:friendship_id]
