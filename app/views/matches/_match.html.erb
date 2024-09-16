@@ -9,12 +9,11 @@
         <% end %>
       </h2>
 
-      <p>
-        <%= match.team_1.player_1.name %>
-      </p>
-      <p>
-        <%= match.team_1.player_2.name %>
-      </p>
+      <% match.match_players_a.each do |match_player| %>
+        <p>
+          <%= match_player.player.name %>
+        </p>
+      <% end %>
     </div>
     <div class="flex flex-col gap-2">
       <h2 class="font-semibold flex flex-row gap-2">
@@ -24,12 +23,11 @@
         <% end %>
       </h2>
 
-      <p>
-        <%= match.team_2.player_1.name %>
-      </p>
-      <p>
-        <%= match.team_2.player_2.name %>
-      </p>
+      <% match.match_players_b.each do |match_player| %>
+        <p>
+          <%= match_player.player.name %>
+        </p>
+      <% end %>
     </div>
   </div>
 

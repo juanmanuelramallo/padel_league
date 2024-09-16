@@ -2,7 +2,6 @@
 namespace :madmin do
   resources :match_players
   resources :friendships
-  resources :teams
   resources :score_sets
   resources :matches
   resources :locations

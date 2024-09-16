@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_15_234207) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_16_005515) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,13 +54,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_15_234207) do
   create_table "matches", force: :cascade do |t|
     t.bigint "location_id", null: false
     t.datetime "played_at", null: false
-    t.bigint "team_1_id"
-    t.bigint "team_2_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_matches_on_location_id"
-    t.index ["team_1_id"], name: "index_matches_on_team_1_id"
-    t.index ["team_2_id"], name: "index_matches_on_team_2_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -92,15 +88,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_15_234207) do
     t.index ["location_id"], name: "index_sessions_on_location_id"
   end
 
-  create_table "teams", force: :cascade do |t|
-    t.bigint "player_1_id", null: false
-    t.bigint "player_2_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["player_1_id"], name: "index_teams_on_player_1_id"
-    t.index ["player_2_id"], name: "index_teams_on_player_2_id"
-  end
-
   add_foreign_key "friendships", "players", column: "player_1_id"
   add_foreign_key "friendships", "players", column: "player_2_id"
   add_foreign_key "invites", "players", column: "invitee_id"
@@ -108,10 +95,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_15_234207) do
   add_foreign_key "match_players", "matches"
   add_foreign_key "match_players", "players"
   add_foreign_key "matches", "locations"
-  add_foreign_key "matches", "teams", column: "team_1_id"
-  add_foreign_key "matches", "teams", column: "team_2_id"
   add_foreign_key "score_sets", "matches"
   add_foreign_key "sessions", "locations"
-  add_foreign_key "teams", "players", column: "player_1_id"
-  add_foreign_key "teams", "players", column: "player_2_id"
 end

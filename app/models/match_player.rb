@@ -23,10 +23,10 @@ class MatchPlayer < ApplicationRecord
   belongs_to :match
   belongs_to :player
 
-  enum team_id: {
+  enum :team_id, {
     a: 0,
     b: 10
-  }, _prefix: true
+  }, prefix: true
 
   validates :player_id, uniqueness: { scope: :match_id }
 end

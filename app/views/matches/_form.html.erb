@@ -2,25 +2,22 @@
 <%= form_with model: match, html: { novalidate: true } do |f| %>
   <div class="flex flex-col gap-2 py-4">
     <%= match.persisted? ? render("match_header", match: match) : nil %>
+
     <div class="grid grid-cols-2 gap-2 w-full">
       <div class="flex flex-col gap-2">
         <h2 class="font-semibold">Team A</h2>
 
-        <%= f.fields_for :team_1_attributes do |team_1| %>
-          <%= team_1.select :player_1_id,
-            options_from_collection_for_select(players, :id, :name, match.team_1.player_1_id) %>
-          <%= team_1.select :player_2_id,
-            options_from_collection_for_select(players, :id, :name, match.team_1.player_2_id) %>
+        <%= f.fields_for :match_players_a do |mp| %>
+          <%= mp.select :player_id,
+            options_from_collection_for_select(players, :id, :name, mp.object.player_id) %>
         <% end %>
       </div>
       <div class="flex flex-col gap-2">
         <h2 class="font-semibold">Team B</h2>
 
-        <%= f.fields_for :team_2_attributes do |team_1| %>
-          <%= team_1.select :player_1_id,
-            options_from_collection_for_select(players, :id, :name, match.team_2.player_1_id) %>
-          <%= team_1.select :player_2_id,
-            options_from_collection_for_select(players, :id, :name, match.team_2.player_2_id) %>
+        <%= f.fields_for :match_players_b do |mp| %>
+          <%= mp.select :player_id,
+            options_from_collection_for_select(players, :id, :name, mp.object.player_id) %>
         <% end %>
       </div>
     </div>

@@ -7,8 +7,6 @@ class MatchResource < Madmin::Resource
 
   # Associations
   attribute :location
-  attribute :team_1
-  attribute :team_2
   attribute :match_players
 
   # Uncomment this to customize the display name of records in the admin area.

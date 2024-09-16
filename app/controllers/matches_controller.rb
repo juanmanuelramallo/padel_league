@@ -9,30 +9,29 @@ class MatchesController < ApplicationController
     @matches = Match.all.includes(
       :score_sets,
       :location,
-      team_1: [ :player_1, :player_2 ],
-      team_2: [ :player_1, :player_2 ],
+      match_players_a: :player,
+      match_players_b: :player,
     ).order(played_at: :desc)
   end
 
   # @route GET /matches/:id (match)
   def show
-    @match = Match.find(params[:id])
+    @match = Match.includes(
+      match_players_a: :player,
+      match_players_b: :player,
+    ).find(params[:id])
   end
 
   # @route GET /matches/new (new_match)
   def new
     @match = Match.new(default_params)
-    @match.build_team_1
-    @match.build_team_2
+    @match.build_empty_match_players
     @match.score_sets.build([ {} ] * 5)
   end
 
   # @route POST /matches (matches)
   def create
     @match = Match.new(data)
-    team_1, team_2 = find_or_initialize_teams
-    @match.team_1 = team_1
-    @match.team_2 = team_2
 
     if @match.save
       redirect_to @match
@@ -44,6 +43,7 @@ class MatchesController < ApplicationController
   # @route GET /matches/:id/edit (edit_match)
   def edit
     @match = Match.find(params[:id])
+    @match.build_empty_match_players
     @match.score_sets = @match.score_sets.with_rank
     @match.score_sets.build([ {} ] * 5)
   end
@@ -52,9 +52,6 @@ class MatchesController < ApplicationController
   # @route PUT /matches/:id (match)
   def update
     @match = Match.find(params[:id])
-    team_1, team_2 = find_or_initialize_teams
-    @match.team_1 = team_1
-    @match.team_2 = team_2
     @match.score_sets = @match.score_sets.with_rank
     @match.assign_attributes(data)
 
@@ -74,19 +71,6 @@ class MatchesController < ApplicationController
 
   private
 
-  def find_or_initialize_teams
-    team_1 = Team.find_or_initialize_by(
-      player_1_id: match_params[:team_1_attributes][:player_1_id],
-      player_2_id: match_params[:team_1_attributes][:player_2_id]
-    )
-    team_2 = Team.find_or_initialize_by(
-      player_1_id: match_params[:team_2_attributes][:player_1_id],
-      player_2_id: match_params[:team_2_attributes][:player_2_id]
-    )
-
-    [ team_1, team_2 ]
-  end
-
   def default_params
     {
       played_at: Time.current,
@@ -98,14 +82,20 @@ class MatchesController < ApplicationController
     params.require(:match).permit(
       :played_at,
       :location_id,
-      team_1_attributes: [ :player_1_id, :player_2_id ],
-      team_2_attributes: [ :player_1_id, :player_2_id ],
-      score_sets_attributes: [ :id, :score_1, :score_2, :_destroy ]
+      score_sets_attributes: [ :id, :score_1, :score_2, :_destroy ],
+      match_players_a_attributes: [ :id, :player_id, :_destroy ],
+      match_players_b_attributes: [ :id, :player_id, :_destroy ],
     )
   end
 
   def data
-    data = match_params.slice(:played_at, :location_id, :score_sets_attributes)
+    data = match_params.slice(
+      :played_at,
+      :location_id,
+      :score_sets_attributes,
+      :match_players_a_attributes,
+      :match_players_b_attributes
+    )
     data[:score_sets_attributes].reject! { |_, v| v[:score_1].blank? && v[:score_2].blank? }
     data
   end
