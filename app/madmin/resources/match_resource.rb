@@ -8,6 +8,7 @@ class MatchResource < Madmin::Resource
   # Associations
   attribute :location
   attribute :match_players
+  attribute :score_sets
 
   # Uncomment this to customize the display name of records in the admin area.
   # def self.display_name(record)
