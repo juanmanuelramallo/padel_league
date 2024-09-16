@@ -51,17 +51,27 @@
       <p class="text-gray-400">No hay sets</p>
     <% end %>
 
-    <% match.score_sets.each.with_index(1) do |score_set, index| %>
-      <div class="grid grid-cols-4 gap-8 w-full">
-        <span class="text-gray-400 my-auto">#<%= index %></span>
-        <span class="text-right">
-          <%= score_set.score_1 %>
-        </span>
-        <span class="text-left">
-          <%= score_set.score_2 %>
-        </span>
-        <span</span>
+    <div class="grid grid-cols-4 gap-8 w-full">
+      <div class="flex flex-col gap-2">
+        <% (match.score_sets.maximum(:position).to_i + 1).times do |index| %>
+          <span class="text-gray-400 my-auto">#<%= index + 1 %></span>
+        <% end %>
       </div>
-    <% end %>
+      <div class="flex flex-col gap-2">
+        <% match.score_sets_a.each do |score_set| %>
+          <span class="text-right">
+            <%= score_set.score %>
+          </span>
+        <% end %>
+      </div>
+      <div class="flex flex-col gap-2">
+        <% match.score_sets_b.each do |score_set| %>
+          <span class="text-left">
+            <%= score_set.score %>
+          </span>
+        <% end %>
+      </div>
+      <div></div>
+    </div>
   </div>
 </div>

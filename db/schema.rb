@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_16_011251) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_16_014325) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,12 +73,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_16_011251) do
 
   create_table "score_sets", force: :cascade do |t|
     t.bigint "match_id", null: false
-    t.integer "score_1"
-    t.integer "score_2"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "score"
     t.integer "team_id"
+    t.integer "position"
     t.index ["match_id"], name: "index_score_sets_on_match_id"
   end
 

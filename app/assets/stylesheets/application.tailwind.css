@@ -19,7 +19,7 @@
     @apply w-full rounded-sm;
   }
 
-  .field_with_errors .input{
+  .field_with_errors .input, .field_with_errors input {
     @apply border-red-700;
   }
 

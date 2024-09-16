@@ -26,7 +26,7 @@ class MatchesController < ApplicationController
   def new
     @match = Match.new(default_params)
     @match.build_empty_match_players
-    @match.score_sets.build([ {} ] * 5)
+    @match.build_empty_score_sets
   end
 
   # @route POST /matches (matches)
@@ -44,15 +44,13 @@ class MatchesController < ApplicationController
   def edit
     @match = Match.find(params[:id])
     @match.build_empty_match_players
-    @match.score_sets = @match.score_sets.with_rank
-    @match.score_sets.build([ {} ] * 5)
+    @match.build_empty_score_sets
   end
 
   # @route PATCH /matches/:id (match)
   # @route PUT /matches/:id (match)
   def update
     @match = Match.find(params[:id])
-    @match.score_sets = @match.score_sets.with_rank
     @match.assign_attributes(data)
 
     if @match.save
@@ -82,7 +80,8 @@ class MatchesController < ApplicationController
     params.require(:match).permit(
       :played_at,
       :location_id,
-      score_sets_attributes: [ :id, :score_1, :score_2, :_destroy ],
+      score_sets_a_attributes: [ :id, :score, :position, :_destroy ],
+      score_sets_b_attributes: [ :id, :score, :position, :_destroy ],
       match_players_a_attributes: [ :id, :player_id, :_destroy ],
       match_players_b_attributes: [ :id, :player_id, :_destroy ],
     )
@@ -92,11 +91,25 @@ class MatchesController < ApplicationController
     data = match_params.slice(
       :played_at,
       :location_id,
-      :score_sets_attributes,
+      :score_sets_a_attributes,
+      :score_sets_b_attributes,
       :match_players_a_attributes,
       :match_players_b_attributes
     )
-    data[:score_sets_attributes].reject! { |_, v| v[:score_1].blank? && v[:score_2].blank? }
+    # Only mark for destruction if both score sets are blank
+    data[:score_sets_a_attributes].each do |_, v|
+      if v[:score].blank?
+        score_b = data[:score_sets_b_attributes].values.find do |b|
+          b[:position] == v[:position]
+        end
+
+        if score_b[:score].blank?
+          v[:_destroy] = true
+          score_b[:_destroy] = true
+        end
+      end
+    end
+
     data
   end
 end

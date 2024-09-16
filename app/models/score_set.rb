@@ -3,9 +3,8 @@
 # Table name: score_sets
 #
 #  id         :bigint           not null, primary key
+#  position   :integer
 #  score      :integer
-#  score_1    :integer
-#  score_2    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  match_id   :bigint           not null
@@ -20,12 +19,11 @@
 #  fk_rails_...  (match_id => matches.id)
 #
 class ScoreSet < ApplicationRecord
-  attribute :rank, :integer
   belongs_to :match
 
-  # validates :score, presence: true
+  validates :score, presence: true
 
-  scope :with_rank, -> { select("rank() over (order by created_at) as rank, *").order(:created_at) }
+  default_scope { order(position: :asc) }
 
   enum :team_id, MatchPlayer.team_ids, prefix: true
 end

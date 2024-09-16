@@ -39,17 +39,21 @@
     <div class="flex flex-col gap-2">
       <h2 class="font-semibold">Sets</h2>
 
-      <%= f.fields_for :score_sets do |score_set| %>
+      <% match.score_sets_a.size.times do |index| %>
         <div class="grid grid-cols-4 gap-2 w-full">
-          <span class="text-gray-400 text-center my-auto"><%= score_set.object.persisted? ? "##{score_set.object.rank}" : '+' %></span>
-          <%= score_set.number_field :score_1 %>
-          <%= score_set.number_field :score_2 %>
-          <div class="flex flex-row justify-center my-auto">
-            <%= score_set.check_box :_destroy, class: "hidden peer" %>
-            <%= score_set.label :_destroy, class: "peer-checked:text-red-500" do %>
-              <%= inline_svg_tag "icons/trash.svg", class: "w-6 h-6" %>
-            <% end %>
-          </div>
+          <span class="text-gray-400 text-center my-auto">#<%= index + 1 %></span>
+
+          <%= f.fields_for :score_sets_a, match.score_sets_a[index] do |score_set| %>
+            <%= score_set.number_field :score %>
+            <%= score_set.hidden_field :position, value: index %>
+          <% end %>
+
+          <%= f.fields_for :score_sets_b, match.score_sets_b[index] do |score_set| %>
+            <%= score_set.number_field :score %>
+            <%= score_set.hidden_field :position, value: index %>
+          <% end %>
+
+          <div></div>
         </div>
       <% end %>
     </div>
