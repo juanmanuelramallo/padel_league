@@ -1,11 +1,11 @@
 <h1 class="text-xl font-bold my-auto"><%= @player.name %></h1>
 
-<%= form_with model: @player, url: players_stats_path, method: :get do |f| %>
+<%= form_with url: players_stats_path, method: :get do |f| %>
   <div class="flex gap-2 mt-2">
     <%= f.date_field :from, class: "border border-gray-200 rounded-md p-2", value: @date_range.first %>
     <%= f.date_field :to, class: "border border-gray-200 rounded-md p-2", value: @date_range.last %>
 
-    <%= f.button type: "submit", class: "btn btn-primary" do %>
+    <%= f.button type: "submit", class: "btn btn-primary", name: "" do %>
       <%= inline_svg_tag "icons/magnifying-glass.svg", class: "w-6 h-6" %>
     <% end %>
   </div>
