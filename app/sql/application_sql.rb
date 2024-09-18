@@ -7,7 +7,7 @@ class ApplicationSQL
 
   def execute
     ActiveRecord::Base.connection.select_all(
-      to_sql,
+      sql,
       name,
       bind_values
     )

@@ -7,7 +7,7 @@
 </div>
 
 <div class="flex flex-col gap-2 mt-4">
-  <%= link_to "Ver stats", players_stats_path, class: "btn btn-primary" %>
+  <%= link_to "Ver stats", player_stats_path(@player), class: "btn btn-primary" %>
 </div>
 
 <%= render "profile", player: @player %>

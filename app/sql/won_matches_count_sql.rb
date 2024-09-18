@@ -5,7 +5,7 @@ class WonMatchesCountSQL < ApplicationSQL
     super.first["result"].to_i
   end
 
-  def to_sql
+  def sql
     <<~SQL.squish
         select
           count(*) as result
@@ -22,9 +22,9 @@ class WonMatchesCountSQL < ApplicationSQL
 
   def bind_values
     [
-      @start_date,
-      @end_date,
-      @player_id
+      start_date,
+      end_date,
+      player_id
     ]
   end
 end
