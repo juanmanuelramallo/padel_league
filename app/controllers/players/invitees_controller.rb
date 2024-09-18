@@ -51,6 +51,12 @@ module Players
       @player = current_player.invitees.find(params[:id])
 
       if @player.confirmed_at.blank? && @player.update(player_params)
+        if @player.email.present? && ActiveModel::Type::Boolean.new.cast(resend_params[:resend_mail])
+          PlayerMailer.with(
+            inviter: current_player,
+            invitee: @player
+          ).invite.deliver_later
+        end
         friendship = current_player.friendships.find_by(player_2: @player)
         redirect_to players_friendship_path(friendship), status: :see_other
       else
@@ -74,6 +80,10 @@ module Players
 
     def player_params
       params.require(:player).permit(:name, :email, :phone)
+    end
+
+    def resend_params
+      params.require(:player).permit(:resend_mail)
     end
 
     def confirmation_token

@@ -35,6 +35,10 @@ class Player < ApplicationRecord
     class_name: "Friendship",
     foreign_key: :player_1_id,
     dependent: :destroy
+  has_many :friendships_received,
+    class_name: "Friendship",
+    foreign_key: :player_2_id,
+    dependent: :destroy
 
   # Matches that this player has played
   has_many :match_players, dependent: :destroy
