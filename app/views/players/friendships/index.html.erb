@@ -1,41 +1,41 @@
-<div class="flex justify-between mt-4">
-  <h1 class="text-xl font-bold my-auto">Amigos</h1>
-</div>
+<%= render "application/main",
+  title: "Amigos" do %>
 
-<div class="flex flex-col gap-2 my-4">
-  <%= link_to new_players_invitee_path, class: "btn btn-primary" do %>
-    Invitar a un amigo
-  <% end %>
-</div>
-
-<div class="flex flex-col gap-4">
-  <% if @requested_friendships.any? %>
-    <div>
-      <h1 class="font-semibold">Aceptar solicitudes de amistad</h1>
-      <div class="flex flex-col divide-y divide-gray-200">
-        <% @requested_friendships.each do |friendship| %>
-          <%= render "form", friendship: friendship %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-
-  <div>
-    <% if @friendships.empty? %>
-      <p>No tienes amigos padeleros aún</p>
-    <% else %>
-      <div class="flex flex-col divide-y divide-gray-200">
-        <%= render partial: "friendship", collection: @friendships %>
-      </div>
+  <div class="flex flex-col gap-2 my-4">
+    <%= link_to new_players_invitee_path, class: "btn btn-primary" do %>
+      Invitar a un amigo
     <% end %>
   </div>
 
-  <% if @pending_friendships.any? %>
-    <div>
-      <h1 class="font-semibold">Amigos esperando confirmación</h1>
-      <div class="flex flex-col divide-y divide-gray-200">
-        <%= render partial: "friendship", collection: @pending_friendships %>
+  <div class="flex flex-col gap-4">
+    <% if @requested_friendships.any? %>
+      <div>
+        <h1 class="font-semibold">Aceptar solicitudes de amistad</h1>
+        <div class="flex flex-col divide-y divide-gray-200">
+          <% @requested_friendships.each do |friendship| %>
+            <%= render "form", friendship: friendship %>
+          <% end %>
+        </div>
       </div>
+    <% end %>
+
+    <div>
+      <% if @friendships.empty? %>
+        <p>No tienes amigos padeleros aún</p>
+      <% else %>
+        <div class="flex flex-col divide-y divide-gray-200">
+          <%= render partial: "friendship", collection: @friendships %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-</div>
+
+    <% if @pending_friendships.any? %>
+      <div>
+        <h1 class="font-semibold">Amigos esperando confirmación</h1>
+        <div class="flex flex-col divide-y divide-gray-200">
+          <%= render partial: "friendship", collection: @pending_friendships %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -1,3 +1,5 @@
-<h1 class="text-xl font-bold">Partido #<%= @match.id %></h1>
-
-<%= render @match %>
+<%= render "application/main",
+  title: "Partido ##{@match.id}",
+  back_url: matches_path do %>
+  <%= render @match %>
+<% end %>

@@ -1,3 +1,5 @@
-<h1 class="text-xl font-bold">Editar partido #<%= @match.id %></h1>
-
-<%= render "form", match: @match %>
+<%= render "application/main",
+ title: "Editar partido",
+ back_url: match_path(@match) do %>
+  <%= render "form", match: @match %>
+<% end %>

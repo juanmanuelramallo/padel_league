@@ -1,40 +1,38 @@
-<div class="flex justify-between mt-4">
-  <h1 class="text-xl font-bold my-auto"><%= @friend.name %></h1>
-  <% if @friend.confirmed_at.blank? %>
-    <%= link_to edit_players_invitee_path(@friend), class: "ml-auto p-1" do %>
-      <%= inline_svg_tag "icons/pencil-square.svg", class: "w-6 h-6" %>
-    <% end %>
-  <% end %>
-</div>
+<%= render "application/main",
+  title: @friend.name,
+  back_url: players_friendships_path,
+  action_icon: "pencil-square",
+  action_url: (edit_players_invitee_path(@friend) if @friend.confirmed_at.blank?) do %>
 
-<div class="flex flex-col gap-2 mt-4">
-  <%= link_to "Ver stats", player_stats_path(@friend), class: "btn btn-primary" %>
-  <%= render "application/datalist", data: {
-    "Nombre": @friend.name,
-    "Email": @friend.email,
-    "Fono": @friend.phone,
-    "Cuenta": @friend.confirmed_at.present? ? 'Confirmada' : 'Pendiente'
-  } %>
-</div>
-
-<% if @qr.present? %>
-  <div class="py-2 mx-auto">
-    <p class="text-gray-900 mb-2">
-    Si asignaste un mail, le hemos enviado un mail a tu compa, o puedes compartirle este QR para que termine de crear su cuenta:
-    </p>
-
-    <div data-controller="clipboard"
-         class="p-2 border border-gray-300 rounded-md mb-2 overflow-hidden"
-         data-clipboard-success-content-value="Copiado!">
-      <input type="hidden" value="<%= @qr_url %>" data-clipboard-target="source" />
-      <button class="flex flex-row truncate break-keep" data-action="clipboard#copy" data-clipboard-target="button">
-        <%= inline_svg_tag "icons/link.svg", class: "h-6 w-6 mr-1" %>
-        <%= @qr_url %>
-      </button>
-    </div>
-
-    <div class="flex flex-row justify-center">
-      <%= raw @qr %>
-    </div>
+  <div class="flex flex-col gap-2 mt-4">
+    <%= link_to "Ver stats", player_stats_path(@friend), class: "btn btn-primary" %>
+    <%= render "application/datalist", data: {
+      "Nombre": @friend.name,
+      "Email": @friend.email,
+      "Fono": @friend.phone,
+      "Cuenta": @friend.confirmed_at.present? ? 'Confirmada' : 'Pendiente'
+    } %>
   </div>
+
+  <% if @qr.present? %>
+    <div class="py-2 mx-auto">
+      <p class="text-gray-900 mb-2">
+      Si asignaste un mail, le hemos enviado un mail a tu compa, o puedes compartirle este QR para que termine de crear su cuenta:
+      </p>
+
+      <div data-controller="clipboard"
+           class="p-2 border border-gray-300 rounded-md mb-2 overflow-hidden"
+           data-clipboard-success-content-value="Copiado!">
+        <input type="hidden" value="<%= @qr_url %>" data-clipboard-target="source" />
+        <button class="flex flex-row truncate break-keep" data-action="clipboard#copy" data-clipboard-target="button">
+          <%= inline_svg_tag "icons/link.svg", class: "h-6 w-6 mr-1" %>
+          <%= @qr_url %>
+        </button>
+      </div>
+
+      <div class="flex flex-row justify-center">
+        <%= raw @qr %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
