@@ -1,6 +1,8 @@
 <%= render "application/main",
   title: "Partidos" do %>
-  <div class="flex flex-col divide-y divide-gray-200">
-    <%= render @matches %>
+  <div class="flex flex-col gap-4">
+    <% @matches.each do |match| %>
+      <%= render "match_index", match: %>
+    <% end %>
   </div>
 <% end %>

@@ -1,0 +1,24 @@
+<%# locals: (match:) %>
+
+<%= link_to match do %>
+  <div class="grid grid-cols-3 gap-4">
+    <div class="rounded-lg bg-cover h-20 shadow-md" style="background-image: url('<%= url_for(match.location.image) %>')">
+    </div>
+
+    <div class="col-span-2">
+      <div class="grid grid-cols-[1fr_auto]">
+        <div>
+          <p class="text-gray-800"><%= match.location.name %></p>
+          <div class="text-gray-500 truncate font-light">
+            <p class=""><%= match.score_sets_summary %></p>
+            <p class=""><%= l match.played_at, format: "%-d de %b, %H:%M" %></p>
+          </div>
+        </div>
+
+        <div class="my-auto">
+          <%= inline_svg_tag "icons/chevron-right.svg", class: "size-6 text-gray-800" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

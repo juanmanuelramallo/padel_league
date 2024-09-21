@@ -51,6 +51,12 @@ class Match < ApplicationRecord
     score_sets_b.build([ {} ] * 5)
   end
 
+  def score_sets_summary
+    score_sets_a.zip(score_sets_b).map do |score_set_a, score_set_b|
+      [ score_set_a&.score, score_set_b&.score ].join("-")
+    end.join(", ")
+  end
+
   def team_1_won?
     score_sets_a.sum(:score) > score_sets_b.sum(:score)
   end

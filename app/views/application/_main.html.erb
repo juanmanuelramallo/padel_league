@@ -2,7 +2,7 @@
 
 <main class="h-full overflow-y-scroll <% if back_url.present? %>pt-3<% end %>">
   <div class="h-full overflow-y-scroll bg-white p-5 <% if back_url.present? %>border-t border-gray-200 rounded-t-[50px] <% end %>">
-    <header class="grid grid-cols-[auto,1fr,auto]">
+    <header class="grid grid-cols-[auto,1fr,auto] mb-4">
       <div class="min-w-6">
         <% if back_url %>
           <%= link_to back_url, class: "p-2" do %>
