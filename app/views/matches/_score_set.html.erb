@@ -1,0 +1,13 @@
+<%# locals: (position:, score_sets: []) %>
+
+<div class="grid grid-cols-[auto_1fr] gap-4">
+  <div class="rounded-2xl bg-gray-100 size-14 flex flex-col justify-center">
+    <p class="m-auto"><%= position %></p>
+  </div>
+
+  <div class="my-auto">
+    <p class="font-light">
+      <%= score_sets['a']&.score %>-<%= score_sets['b']&.score %>
+    </p>
+  </div>
+</div>

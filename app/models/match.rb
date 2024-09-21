@@ -52,9 +52,18 @@ class Match < ApplicationRecord
   end
 
   def score_sets_summary
-    score_sets_a.zip(score_sets_b).map do |score_set_a, score_set_b|
-      [ score_set_a&.score, score_set_b&.score ].join("-")
+    score_sets_by_position.map do |position, scores|
+      "#{scores["a"].score}-#{scores["b"].score}"
     end.join(", ")
+  end
+
+  def score_sets_by_position
+    score_sets.inject({}) do |hash, score_set|
+      hash[score_set.position + 1] ||= {}
+      hash[score_set.position + 1][score_set.team_id] = score_set
+
+      hash
+    end
   end
 
   def team_1_won?

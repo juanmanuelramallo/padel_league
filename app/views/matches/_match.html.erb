@@ -1,94 +1,44 @@
-<div class="flex flex-col gap-2">
-  <div class="grid grid-cols-2 gap-2 w-full">
-    <div class="flex flex-col gap-2">
-      <h2 class="font-semibold flex flex-row gap-2">
-        Team A
-        <% if match.team_1_won? %>
-          <%= inline_svg_tag "icons/trophy.svg", class: "w-6 h-6 fill-yellow-400" %>
-        <% end %>
-      </h2>
+<div class="flex flex-col gap-8">
+  <div class="flex flex-col gap-4">
+    <%= render "team", team_name: "A", players: match.match_players_a, won: match.team_1_won? %>
+    <%= render "team", team_name: "B", players: match.match_players_b, won: match.team_2_won? %>
+  </div>
 
-      <% match.match_players_a.each do |match_player| %>
-        <p>
-          <%= match_player.player.name %>
-        </p>
-      <% end %>
-    </div>
-    <div class="flex flex-col gap-2">
-      <h2 class="font-semibold flex flex-row gap-2">
-        Team B
-        <% if match.team_2_won? %>
-          <%= inline_svg_tag "icons/trophy.svg", class: "w-6 h-6 fill-yellow-400" %>
-        <% end %>
-      </h2>
+  <div>
+    <h1 class="text-xl font-bold leading-relaxed mb-4">Sets</h1>
 
-      <% match.match_players_b.each do |match_player| %>
-        <p>
-          <%= match_player.player.name %>
-        </p>
+    <div class="flex flex-col gap-4">
+      <% match.score_sets_by_position.map do |position, score_sets| %>
+        <%= render "score_set", position: position, score_sets: score_sets %>
       <% end %>
     </div>
   </div>
 
-  <div class="grid grid-cols-2 gap-2 w-full">
-    <div class="flex flex-col gap-2">
-      <h2 class="font-semibold">Lugar</h2>
+  <div>
+    <h1 class="text-xl font-bold leading-relaxed mb-4">Fecha y lugar</h1>
 
-      <%= match.location.name %>
-    </div>
-    <div class="flex flex-col gap-2">
-      <h2 class="font-semibold">Fecha</h2>
-
-      <%= l match.played_at, format: :short %>
-    </div>
-  </div>
-
-  <div class="flex flex-col gap-2">
-    <h2 class="font-semibold">Sets</h2>
-
-    <% if match.score_sets.empty? %>
-      <p class="text-gray-400">No hay sets</p>
-    <% end %>
-
-    <div class="grid grid-cols-4 gap-8 w-full">
-      <div class="flex flex-col gap-2">
-        <% (match.score_sets.maximum(:position).to_i + 1).times do |index| %>
-          <span class="text-gray-400 my-auto">#<%= index + 1 %></span>
-        <% end %>
+    <div class="grid grid-cols-[auto_1fr] gap-4 mb-4">
+      <div class="rounded-2xl bg-gray-100 size-14 flex flex-col justify-center">
+        <%= inline_svg_tag "icons/map-pin.svg", class: "size-5 m-auto" %>
       </div>
-      <div class="flex flex-col gap-2">
-        <% match.score_sets_a.each do |score_set| %>
-          <span class="text-right">
-            <%= score_set.score %>
-          </span>
-        <% end %>
-      </div>
-      <div class="flex flex-col gap-2">
-        <% match.score_sets_b.each do |score_set| %>
-          <span class="text-left">
-            <%= score_set.score %>
-          </span>
-        <% end %>
-      </div>
-      <div></div>
-    </div>
-  </div>
 
-  <div data-controller="clipboard"
-       class="flex flex-col mt-4"
-       data-clipboard-success-content-value="Copiado!">
-       <input type="hidden" value="<%= match_url(match) %>" data-clipboard-target="source" />
-       <%= link_to match_path(match),
-         class: "btn btn-secondary",
-         title: "Copiar link",
-         data: {
-           action: "clipboard#copy",
-           "clipboard-target": "button",
-         } do %>
-          <span>
-            Copiar link
-          </span>
-          <%= inline_svg_tag "icons/link.svg", class: "size-5 inline" %>
-       <% end %>
+      <div class="my-auto">
+        <p class="">
+          <%= match.location.name %>
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-[auto_1fr] gap-4">
+      <div class="rounded-2xl bg-gray-100 size-14 flex flex-col justify-center">
+        <%= inline_svg_tag "icons/calendar.svg", class: "size-5 m-auto" %>
+      </div>
+
+      <div class="my-auto">
+        <p class="">
+          <%= l(match.played_at, format: "%a %-d de %B %Y a las %H:%M").capitalize %>
+        </p>
+      </div>
+    </div>
   </div>
 </div>
