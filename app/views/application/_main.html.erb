@@ -1,0 +1,27 @@
+<%# locals: (back_url: nil, title: nil, action_icon: nil, action_url: nil) %>
+
+<main class="h-full overflow-y-scroll <% if back_url.present? %>pt-3<% end %>">
+  <div class="h-full overflow-y-scroll bg-white p-5 <% if back_url.present? %>border-t border-gray-200 rounded-t-[50px] <% end %>">
+    <header class="grid grid-cols-[auto,1fr,auto]">
+      <div class="min-w-6">
+        <% if back_url %>
+          <%= link_to back_url, class: "p-2" do %>
+            <%= inline_svg_tag "icons/x-mark.svg", class: "size-6" %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <h1 class="text-xl font-bold my-auto text-center"><%= title %></h1>
+
+      <div class="min-w-6">
+        <% if action_url %>
+          <%= link_to action_url, class: "p-2" do %>
+            <%= inline_svg_tag "icons/#{action_icon}.svg", class: "size-6" %>
+          <% end %>
+        <% end %>
+      </div>
+    </header>
+
+    <%= yield %>
+  </div>
+</main>

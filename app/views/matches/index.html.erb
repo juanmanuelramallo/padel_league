@@ -1,5 +1,6 @@
-<h1 class="text-xl font-bold mb-2">Partidos</h1>
-
-<div class="flex flex-col divide-y divide-gray-200">
-  <%= render @matches %>
-</div>
+<%= render "application/main",
+  title: "Partidos" do %>
+  <div class="flex flex-col divide-y divide-gray-200">
+    <%= render @matches %>
+  </div>
+<% end %>

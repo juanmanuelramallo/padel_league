@@ -1,3 +1,5 @@
-<h1 class="text-xl font-bold">Nuevo partido</h1>
-
-<%= render "form", match: @match %>
+<%= render "application/main",
+  back_url: root_path,
+  title: "Nuevo partido" do %>
+  <%= render "form", match: @match %>
+<% end %>
