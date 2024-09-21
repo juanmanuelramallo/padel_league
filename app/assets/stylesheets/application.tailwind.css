@@ -4,15 +4,15 @@
 
 @layer components {
   .btn {
-    @apply text-center rounded-sm;
+    @apply text-center rounded-xl;
   }
 
   .btn-primary {
-    @apply py-2 px-4 bg-gray-900 text-white border-gray-900 border;
+    @apply py-2 px-4 bg-primary-500 text-white border-primary-500 border;
   }
 
   .btn-secondary {
-    @apply py-2 px-4 bg-white text-gray-900 border-gray-900 border;
+    @apply py-2 px-4 bg-white text-primary-500 border-primary-500 border;
   }
 
   .input {
@@ -20,10 +20,18 @@
   }
 
   .field_with_errors .input, .field_with_errors input {
-    @apply border-red-700;
+    @apply border-secondary-700;
   }
 
-  select, input {
-    @apply w-full !rounded-sm;
+  select, input[type="text"], input[type="email"], input[type="password"],
+    input[type="number"], input[type="tel"], input[type="url"], input[type="datetime-local"],
+    input[type="date"], input[type="month"], input[type="week"], input[type="time"] {
+    @apply w-full rounded-lg border border-gray-100 bg-gray-100
+      focus:ring-primary-500 focus:border-primary-500;
+  }
+
+  input[type="checkbox"], input[type="radio"] {
+    @apply rounded-sm text-primary-500
+      focus:ring-primary-500 focus:border-primary-500;
   }
 }

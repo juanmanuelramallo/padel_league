@@ -6,7 +6,7 @@
       <div class="min-w-6">
         <% if back_url %>
           <%= link_to back_url, class: "p-2" do %>
-            <%= inline_svg_tag "icons/x-mark.svg", class: "size-6" %>
+            <%= inline_svg_tag "icons/x-mark.svg", class: "size-6 text-primary-500 stroke-2" %>
           <% end %>
         <% end %>
       </div>
@@ -16,7 +16,7 @@
       <div class="min-w-6">
         <% if action_url %>
           <%= link_to action_url, class: "p-2" do %>
-            <%= inline_svg_tag "icons/#{action_icon}.svg", class: "size-6" %>
+            <%= inline_svg_tag "icons/#{action_icon}.svg", class: "size-6 text-primary-500" %>
           <% end %>
         <% end %>
       </div>

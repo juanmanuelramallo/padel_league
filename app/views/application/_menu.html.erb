@@ -5,11 +5,12 @@
   { name: "Perfil", path: players_profile_path, icon: "user-circle" }
 ] %>
 
-<div class="grid grid-cols-4 h-full border-t border-gray-300 text-gray-600 bg-white">
+<div class="grid grid-cols-4 h-full border-t border-gray-300 bg-white">
   <% links.each do |link| %>
+    <% current = current_page?(link[:path]) %>
     <%= link_to link[:path], title: link[:name],
-      class: "p-3 my-auto flex flex-col gap-1 items-center #{'text-gray-900 font-bold' if current_page?(link[:path])}" do %>
-      <%= inline_svg_tag "icons/#{link[:icon]}.svg", class: "w-8 h-8" %>
+      class: "p-3 my-auto flex flex-col gap-1 items-center text-gray-500 #{'text-gray-800 font-bold' if current}" do %>
+      <%= inline_svg_tag "icons/#{link[:icon]}.svg", class: "size-8 #{'stroke-2' if current}" %>
       <span class="text-sm"><%= link[:name] %></span>
     <% end %>
   <% end %>
