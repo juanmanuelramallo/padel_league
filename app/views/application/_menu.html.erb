@@ -1,0 +1,16 @@
+<% links = [
+  { name: "Partidos", path: root_path, icon: "home" },
+  { name: "Nuevo", path: new_match_path, icon: "plus-circle" },
+  { name: "Amigos", path: players_friendships_path, icon: "users" },
+  { name: "Perfil", path: players_profile_path, icon: "user-circle" }
+] %>
+
+<div class="grid grid-cols-4 h-full border-t border-gray-300 text-gray-600 bg-white">
+  <% links.each do |link| %>
+    <%= link_to link[:path], title: link[:name],
+      class: "p-3 my-auto flex flex-col gap-1 items-center #{'text-gray-900 font-bold' if current_page?(link[:path])}" do %>
+      <%= inline_svg_tag "icons/#{link[:icon]}.svg", class: "w-8 h-8" %>
+      <span class="text-sm"><%= link[:name] %></span>
+    <% end %>
+  <% end %>
+</div>

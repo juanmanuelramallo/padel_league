@@ -18,12 +18,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-gray-50">
-    <main class="bg-white max-w-md mx-auto mb-5 flex flex-col">
-      <%= render "application/header" %>
-      <%= render "application/flash" %>
-      <div class="p-5">
+  <body class="bg-gray-50 h-screen">
+    <main class="bg-white sm:max-w-md sm:mx-auto">
+      <div class="p-5 pb-28">
+        <%= render "application/flash" %>
         <%= yield %>
+      </div>
+      <div class="h-28 w-full fixed bottom-0">
+        <%= render "application/menu" %>
       </div>
     </main>
   </body>
