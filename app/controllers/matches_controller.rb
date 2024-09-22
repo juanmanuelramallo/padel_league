@@ -1,12 +1,12 @@
 class MatchesController < ApplicationController
   include Authenticate
 
-  skip_before_action :authenticate_player!, only: [ :index, :show ]
+  skip_before_action :authenticate_player!, only: [ :show ]
 
   # @route GET /matches (matches)
   # @route GET / (root)
   def index
-    @matches = Match.all.includes(
+    @matches = current_player.matches.includes(
       :score_sets,
       :location,
       match_players_a: :player,
@@ -16,12 +16,21 @@ class MatchesController < ApplicationController
 
   # @route GET /matches/:id (match)
   def show
-    @match = Match.includes(
+    includes = [
+      :score_sets,
       match_players_a: :player,
       match_players_b: :player,
-    ).find(params[:id])
-    @can_confirm = @match.players.include?(current_player) &&
-      @match.confirmations.none? { |confirmation| confirmation.confirmed_by == current_player }
+      confirmations: :confirmed_by
+    ]
+
+    if current_player
+      @match = current_player.matches.includes(includes).find(params[:id])
+      @can_confirm = @match.players.include?(current_player) &&
+        @match.confirmations.none? { |confirmation| confirmation.confirmed_by == current_player }
+    else
+      @match = Match.includes(includes).find(params[:id])
+      @can_confirm = false
+    end
   end
 
   # @route GET /matches/new (new_match)
@@ -40,20 +49,25 @@ class MatchesController < ApplicationController
       "b"
     end
 
-    if @match.save
-      if @match.players.include?(current_player)
-        @match.confirmations.create!(confirmed_by: current_player, confirmed_at: Time.current)
-      end
+    current_player_is_present = (@match.match_players_a + @match.match_players_b).any? { |mp| mp.player_id == current_player.id }
 
+    # Ensure the current player is part of the match
+    if current_player_is_present &&
+        @match.save
+      @match.confirmations.create!(confirmed_by: current_player, confirmed_at: Time.current)
       redirect_to @match
     else
+      @match.build_empty_match_players
+      @match.build_empty_score_sets
+
+      flash.now[:alert] = "Te olvidaste de agregarte al partido" unless current_player_is_present
       render :new, status: :unprocessable_entity
     end
   end
 
   # @route GET /matches/:id/edit (edit_match)
   def edit
-    @match = Match.find(params[:id])
+    @match = current_player.matches.find(params[:id])
     @match.build_empty_match_players
     @match.build_empty_score_sets
   end
@@ -61,7 +75,7 @@ class MatchesController < ApplicationController
   # @route PATCH /matches/:id (match)
   # @route PUT /matches/:id (match)
   def update
-    @match = Match.find(params[:id])
+    @match = current_player.matches.find(params[:id])
     @match.assign_attributes(data)
     @match.winner_team_id = if @match.team_1_won?
       "a"
@@ -76,13 +90,6 @@ class MatchesController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
-  end
-
-  # @route DELETE /matches/:id (match)
-  def destroy
-    @match = Match.find(params[:id])
-    @match.destroy!
-    redirect_to matches_path, notice: "Partido eliminado"
   end
 
   private

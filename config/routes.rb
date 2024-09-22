@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :matches do
+  resources :matches, except: [ :destroy ] do
     resources :match_confirmations, only: [ :create ], path: "confirmations", controller: "matches/confirmations"
   end
 

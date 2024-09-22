@@ -1,7 +1,7 @@
 <%= render "application/main",
   title: "Partido ##{@match.id}",
-  back_url: matches_path,
+  back_url: (matches_path if current_player),
   action_icon: "pencil-square",
-  action_url: edit_match_path(@match) do %>
+  action_url: (edit_match_path(@match) if current_player) do %>
   <%= render "match", match: @match, can_confirm: @can_confirm %>
 <% end %>
