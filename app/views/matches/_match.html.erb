@@ -1,3 +1,5 @@
+<%# locals: (match:, can_confirm: false) %>
+
 <div class="flex flex-col gap-8">
   <div class="flex flex-col gap-4">
     <%= render "team", team_name: "A", players: match.match_players_a, won: match.team_1_won? %>
@@ -42,19 +44,54 @@
     </div>
   </div>
 
+  <div class="flex flex-col gap-4">
+    <h1 class="text-xl font-bold leading-relaxed">Confirmaciones</h1>
+
+    <% if match.confirmations.blank? %>
+      <p class="text-gray-600">No hay confirmaciones aún.</p>
+    <% end %>
+
+    <% if can_confirm %>
+      <div class="flex">
+        <%= link_to match_match_confirmations_path(match),
+          class: "btn btn-primary w-full",
+          data: { turbo_method: :post },
+          title: "Confirmar" do %>
+          <span>Confirmar</span>
+          <%= inline_svg_tag "icons/check-badge.svg", class: "h-6 w-6 my-auto inline" %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if match.confirmations.any? %>
+      <div class="grid grid-cols-[auto_1fr] gap-4">
+        <% match.confirmations.each do |confirmation| %>
+          <div class="rounded-2xl bg-gray-100 size-14 flex flex-col justify-center">
+            <%= inline_svg_tag "icons/check-badge.svg", class: "size-5 m-auto" %>
+          </div>
+
+          <div class="my-auto">
+            <p><%= confirmation.confirmed_by.name %></p>
+            <p class="font-light text-gray-600"><%= l confirmation.confirmed_at, format: "%d/%m/%Y" %></p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
   <div data-controller="clipboard"
        class="flex"
        data-clipboard-success-content-value="Copiado!">
-       <input type="hidden" value="<%= match_url(match) %>" data-clipboard-target="source" />
-       <%= link_to match_path(match),
-         class: "btn btn-secondary w-full",
-         title: "Ver",
-         data: {
-           action: "clipboard#copy",
-           "clipboard-target": "button",
-         } do %>
-         <span>Copiar link</span>
-         <%= inline_svg_tag "icons/link.svg", class: "h-5 w-5 m-auto inline" %>
-       <% end %>
+    <input type="hidden" value="<%= match_url(match) %>" data-clipboard-target="source" />
+    <%= link_to match_path(match),
+      class: "btn btn-secondary w-full",
+      title: "Ver",
+      data: {
+        action: "clipboard#copy",
+        "clipboard-target": "button",
+      } do %>
+      <span>Copiar link</span>
+      <%= inline_svg_tag "icons/link.svg", class: "h-5 w-5 m-auto inline" %>
+    <% end %>
   </div>
 </div>

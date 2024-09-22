@@ -23,7 +23,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :matches
+  resources :matches do
+    resources :match_confirmations, only: [ :create ], path: "confirmations", controller: "matches/confirmations"
+  end
 
   root to: "matches#index"
 end

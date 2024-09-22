@@ -28,6 +28,7 @@ class Match < ApplicationRecord
   has_many :match_players_a, -> { where(team_id: "a") }, class_name: "MatchPlayer"
   has_many :match_players_b, -> { where(team_id: "b") }, class_name: "MatchPlayer"
   has_many :players, through: :match_players
+  has_many :confirmations, class_name: "MatchConfirmation"
 
   validates :played_at, presence: true
 

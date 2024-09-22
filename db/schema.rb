@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_21_154500) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_22_041445) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,6 +72,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_21_154500) do
     t.string "address", default: "", null: false
   end
 
+  create_table "match_confirmations", force: :cascade do |t|
+    t.bigint "match_id", null: false
+    t.bigint "confirmed_by_id", null: false
+    t.datetime "confirmed_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["confirmed_by_id"], name: "index_match_confirmations_on_confirmed_by_id"
+    t.index ["match_id"], name: "index_match_confirmations_on_match_id"
+  end
+
   create_table "match_players", force: :cascade do |t|
     t.bigint "match_id", null: false
     t.bigint "player_id", null: false
@@ -128,6 +138,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_21_154500) do
   add_foreign_key "friendships", "players", column: "player_2_id"
   add_foreign_key "invites", "players", column: "invitee_id"
   add_foreign_key "invites", "players", column: "inviter_id"
+  add_foreign_key "match_confirmations", "matches"
+  add_foreign_key "match_confirmations", "players", column: "confirmed_by_id"
   add_foreign_key "match_players", "matches"
   add_foreign_key "match_players", "players"
   add_foreign_key "matches", "locations"

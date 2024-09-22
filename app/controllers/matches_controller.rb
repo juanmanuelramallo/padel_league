@@ -20,6 +20,8 @@ class MatchesController < ApplicationController
       match_players_a: :player,
       match_players_b: :player,
     ).find(params[:id])
+    @can_confirm = @match.players.include?(current_player) &&
+      @match.confirmations.none? { |confirmation| confirmation.confirmed_by == current_player }
   end
 
   # @route GET /matches/new (new_match)
@@ -39,6 +41,10 @@ class MatchesController < ApplicationController
     end
 
     if @match.save
+      if @match.players.include?(current_player)
+        @match.confirmations.create!(confirmed_by: current_player, confirmed_at: Time.current)
+      end
+
       redirect_to @match
     else
       render :new, status: :unprocessable_entity
@@ -64,6 +70,8 @@ class MatchesController < ApplicationController
     end
 
     if @match.save
+      @match.confirmations.where.not(confirmed_by: current_player).destroy_all
+
       redirect_to @match
     else
       render :edit, status: :unprocessable_entity

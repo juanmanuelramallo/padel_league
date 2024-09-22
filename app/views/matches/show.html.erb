@@ -3,5 +3,5 @@
   back_url: matches_path,
   action_icon: "pencil-square",
   action_url: edit_match_path(@match) do %>
-  <%= render @match %>
+  <%= render "match", match: @match, can_confirm: @can_confirm %>
 <% end %>
