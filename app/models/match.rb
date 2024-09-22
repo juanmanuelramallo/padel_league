@@ -68,10 +68,10 @@ class Match < ApplicationRecord
   end
 
   def team_1_won?
-    score_sets_a.sum(:score) > score_sets_b.sum(:score)
+    score_sets_a.map(&:score).sum > score_sets_b.map(&:score).sum
   end
 
   def team_2_won?
-    score_sets_b.sum(:score) > score_sets_a.sum(:score)
+    score_sets_b.map(&:score).sum > score_sets_a.map(&:score).sum
   end
 end

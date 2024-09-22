@@ -2,8 +2,8 @@
 
 <div class="flex flex-col gap-8">
   <div class="flex flex-col gap-4">
-    <%= render "team", team_name: "A", players: match.match_players_a, won: match.team_1_won? %>
-    <%= render "team", team_name: "B", players: match.match_players_b, won: match.team_2_won? %>
+    <%= render "team", team_name: "A", players: match.match_players_a, won: match.winner_team_id == "a" %>
+    <%= render "team", team_name: "B", players: match.match_players_b, won: match.winner_team_id == "b" %>
   </div>
 
   <div>
