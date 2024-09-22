@@ -41,4 +41,20 @@
       </div>
     </div>
   </div>
+
+  <div data-controller="clipboard"
+       class="flex"
+       data-clipboard-success-content-value="Copiado!">
+       <input type="hidden" value="<%= match_url(match) %>" data-clipboard-target="source" />
+       <%= link_to match_path(match),
+         class: "btn btn-secondary w-full",
+         title: "Ver",
+         data: {
+           action: "clipboard#copy",
+           "clipboard-target": "button",
+         } do %>
+         <span>Copiar link</span>
+         <%= inline_svg_tag "icons/link.svg", class: "h-5 w-5 m-auto inline" %>
+       <% end %>
+  </div>
 </div>
