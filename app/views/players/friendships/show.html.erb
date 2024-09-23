@@ -5,13 +5,13 @@
   action_url: (edit_players_invitee_path(@friend) if @friend.confirmed_at.blank?) do %>
 
   <div class="flex flex-col gap-2 mt-4">
-    <%= link_to "Ver stats", player_stats_path(@friend), class: "btn btn-primary" %>
     <%= render "application/datalist", data: {
       "Nombre": @friend.name,
       "Email": @friend.email,
       "Fono": @friend.phone,
       "Cuenta": @friend.confirmed_at.present? ? 'Confirmada' : 'Pendiente'
     } %>
+    <%= link_to "Ver stats", player_stats_path(@friend), class: "btn btn-primary" %>
   </div>
 
   <% if @qr.present? %>
