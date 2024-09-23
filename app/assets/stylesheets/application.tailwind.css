@@ -34,4 +34,8 @@
     @apply rounded-sm text-primary-500
       focus:ring-primary-500 focus:border-primary-500;
   }
+
+  input[readonly] {
+    @apply bg-white border-gray-100 focus:ring-gray-100 focus:border-gray-100 cursor-not-allowed;
+  }
 }

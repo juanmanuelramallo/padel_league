@@ -3,11 +3,9 @@
     <%= f.text_field :name, placeholder: "Nombre" %>
     <%= f.password_field :password, placeholder: "Nueva contraseña" %>
     <%= f.password_field :password_confirmation, placeholder: "Confirmar contraseña" %>
-    <%= f.email_field :email, placeholder: "Email", readonly: true %>
-    <%= f.phone_field :phone, placeholder: "Teléfono", readonly: true %>
-    <p class="text-gray-900 text-sm">Mandá un mensaje al administrador para modificar el email o el teléfono.</p>
+    <p class="text-gray-900 text-sm">Dejá en blanco si no deseas cambiar tu contraseña</p>
 
-    <div class="flex">
+    <div class="flex flex-col mt-2">
       <%= f.submit "Guardar", class: "btn btn-primary" %>
     </div>
   </div>

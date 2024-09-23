@@ -9,6 +9,7 @@ module Players
       if @player
         @player.update!(confirmed_at: Time.current)
         session[:player_id] = @player.id
+        session[:must_change_password] = true
         redirect_to(
           params[:redirect_to].presence || root_path,
           notice: "Bienvenido!"
