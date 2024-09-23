@@ -17,6 +17,6 @@ module Authenticate
   def check_password_change
     return unless current_player_signed_in? && session[:must_change_password]
 
-    redirect_to edit_players_profile_path, alert: "Debes cambiar tu contraseña."
+    redirect_to edit_players_profile_path, alert: "Debes crear una contraseña antes de continuar."
   end
 end

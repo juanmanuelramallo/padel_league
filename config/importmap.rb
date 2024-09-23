@@ -8,3 +8,4 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 pin "@stimulus-components/clipboard", to: "@stimulus-components--clipboard.js" # @5.0.0
 pin "chartkick", to: "chartkick.js"
 pin "highcharts" # @11.4.8
+pin "alpinejs" # @3.14.1

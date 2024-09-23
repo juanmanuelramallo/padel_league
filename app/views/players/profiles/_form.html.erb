@@ -3,7 +3,9 @@
     <%= f.text_field :name, placeholder: "Nombre" %>
     <%= f.password_field :password, placeholder: "Nueva contraseña" %>
     <%= f.password_field :password_confirmation, placeholder: "Confirmar contraseña" %>
-    <p class="text-gray-900 text-sm">Dejá en blanco si no deseas cambiar tu contraseña</p>
+    <% unless session[:must_change_password] %>
+      <p class="text-gray-900 text-sm">Dejá en blanco si no deseas cambiar tu contraseña</p>
+    <% end %>
 
     <div class="flex flex-col mt-2">
       <%= f.submit "Guardar", class: "btn btn-primary" %>

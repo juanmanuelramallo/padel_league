@@ -3,5 +3,9 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "chartkick"
 import Highcharts from "highcharts"
+import Alpine from 'alpinejs'
 
+window.Alpine = Alpine
 window.Highcharts = Highcharts
+
+Alpine.start()
