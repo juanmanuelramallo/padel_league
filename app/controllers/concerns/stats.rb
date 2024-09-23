@@ -18,11 +18,11 @@ module Stats
 
   def start_date
     @start_date ||=
-      [ fetch_date(:from, Date.today.beginning_of_month), end_date - MAX_RANGE ].max
+      [ fetch_date(:from, Date.today - 1.month), end_date - MAX_RANGE ].max
   end
 
   def end_date
-    @end_date ||= fetch_date(:to, Date.today.end_of_month)
+    @end_date ||= fetch_date(:to, Date.today)
   end
 
   def fetch_date(param_name, default_date)
