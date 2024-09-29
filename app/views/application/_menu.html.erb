@@ -11,7 +11,6 @@
     <%= link_to link[:path], title: link[:name],
       class: "p-3 my-auto flex flex-col gap-1 items-center text-gray-500 #{'text-gray-800 font-bold' if current}" do %>
       <%= inline_svg_tag "icons/#{link[:icon]}.svg", class: "size-8 #{'stroke-2' if current}" %>
-      <span class="text-sm"><%= link[:name] %></span>
     <% end %>
   <% end %>
 </div>
