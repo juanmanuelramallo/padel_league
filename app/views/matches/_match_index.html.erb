@@ -2,8 +2,14 @@
 
 <%= link_to match do %>
   <div class="grid grid-cols-3 gap-4">
-    <div class="rounded-lg bg-cover h-20 shadow-md" style="background-image: url('<%= url_for(match.location.image) %>')">
-    </div>
+    <% if match.location.image.attached? %>
+      <div class="rounded-lg bg-cover h-20 shadow-md" style="background-image: url('<%= url_for(match.location.image) %>')">
+      </div>
+    <% else %>
+      <div class="h-20 bg-gray-100 shadow-md rounded-lg flex items-center">
+        <%= inline_svg_tag "icons/padel-court.svg", class: "h-10 w-auto m-auto stroke-gray-400" %>
+      </div>
+    <% end %>
 
     <div class="col-span-2">
       <div class="grid grid-cols-[1fr_auto]">

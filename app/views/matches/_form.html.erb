@@ -25,7 +25,12 @@
         <h2 class="font-semibold">Lugar</h2>
 
         <%= f.select :location_id,
-          options_from_collection_for_select(Location.all.order(:name), :id, :name) %>
+          options_from_collection_for_select(
+            Location.all.order(:name),
+            :id,
+            :name,
+            match.location_id
+          ) %>
       </div>
       <div class="flex flex-col gap-2">
         <h2 class="font-semibold">Fecha</h2>

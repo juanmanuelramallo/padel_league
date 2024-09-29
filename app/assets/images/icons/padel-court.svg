@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Outer Boundaries -->
+  <rect x="2" y="2" width="196" height="96" />
+
+  <!-- Net (Middle Line) -->
+  <line x1="100" y1="2" x2="100" y2="98" stroke-dasharray="5,5" />
+
+  <!-- Service Box Dividers (69.5px from the net) -->
+  <!-- Left Service Line -->
+  <line x1="30.5" y1="2" x2="30.5" y2="98" />
+
+  <!-- Right Service Line -->
+  <line x1="169.5" y1="2" x2="169.5" y2="98" />
+
+  <!-- Horizontal Divider for Service Boxes -->
+  <line x1="2" y1="50" x2="198" y2="50" />
+</svg>
