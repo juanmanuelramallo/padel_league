@@ -9,7 +9,7 @@ class PlayedMatchesSQL < ApplicationSQL
     <<~SQL.squish
         select
           date_trunc($4, date)::date as date,
-          count(matches.id) as result
+          count(match_players.id) as result
         from
           generate_series($1::date, $2::date, '1 day'::interval) as date
         left join
