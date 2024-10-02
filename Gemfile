@@ -1,6 +1,8 @@
 source "https://rubygems.org"
 
+gem "ahoy_matey"
 gem "bcrypt", "~> 3.1.7"
+gem "blazer"
 gem "bootsnap", require: false
 gem "chartkick"
 gem "google-cloud-storage", "~> 1.11", require: false

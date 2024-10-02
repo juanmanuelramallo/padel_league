@@ -10,7 +10,6 @@ module Players
       end
 
       @player = Player.new
-      # ahoy.track "Viewed login"
     end
 
     # @route POST /players/session (players_session)
@@ -19,8 +18,7 @@ module Players
 
       if @player&.authenticate(player_params[:password])
         session[:player_id] = @player.id
-        # ahoy.authenticate(@player)
-        # ahoy.track "Logged in"
+        ahoy.authenticate(@player)
 
         redirect_to(
           params[:redirect_to].presence || root_path,
@@ -36,7 +34,6 @@ module Players
     # @route DELETE /players/session (players_session)
     def destroy
       session[:player_id] = nil
-      # ahoy.track "Logged out"
       redirect_to new_players_session_path, notice: "Cerraste sesión"
     end
 

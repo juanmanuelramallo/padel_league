@@ -28,4 +28,6 @@ Rails.application.routes.draw do
   end
 
   root to: "matches#index"
+
+  mount Blazer::Engine, at: "blazer"
 end
