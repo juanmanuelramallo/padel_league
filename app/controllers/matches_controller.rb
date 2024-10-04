@@ -6,12 +6,23 @@ class MatchesController < ApplicationController
   # @route GET /matches (matches)
   # @route GET / (root)
   def index
+    @players = current_player.friends.order(:name)
+    @searched_player = @players.find_by(id: params[:player_id])
+
     @matches = current_player.matches.includes(
       :score_sets,
       :location,
       match_players_a: :player,
       match_players_b: :player,
     ).order(played_at: :desc)
+
+    if @searched_player
+      @matches = @matches.where(
+        match_players_a: { player_id: @searched_player.id }
+      ).or(
+        @matches.where(match_players_b: { player_id: @searched_player.id })
+      )
+    end
   end
 
   # @route GET /matches/:id (match)

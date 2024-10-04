@@ -1,6 +1,18 @@
 <%= render "application/main",
   title: "Partidos" do %>
   <div class="flex flex-col gap-4">
+    <%= form_with url: matches_path, method: :get do |form| %>
+      <%= form.select :player_id,
+          options_from_collection_for_select(@players, "id", "name", @searched_player&.id),
+          { include_blank: "Todos los jugadores" },
+          { onchange: "this.form.submit()" }
+      %>
+    <% end %>
+
+    <% if @matches.blank? && @searched_player.present? %>
+      <p class="text-center">No se encontraron partidos para el jugador seleccionado.</p>
+    <% end %>
+
     <% @matches.each do |match| %>
       <%= render "match_index", match: %>
     <% end %>
