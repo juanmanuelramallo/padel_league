@@ -6,6 +6,7 @@
 #  confirmation_token :string
 #  confirmed_at       :datetime
 #  email              :string
+#  friend_token       :string
 #  name               :string           not null
 #  password_digest    :string
 #  phone              :string
@@ -15,6 +16,7 @@
 # Indexes
 #
 #  index_players_on_confirmation_token  (confirmation_token) UNIQUE
+#  index_players_on_friend_token        (friend_token) UNIQUE
 #
 class Player < ApplicationRecord
   has_secure_password :password, validations: false
@@ -50,4 +52,8 @@ class Player < ApplicationRecord
   validates :email,
     uniqueness: { allow_blank: true, case_sensitive: false },
     format: { allow_blank: true, with: URI::MailTo::EMAIL_REGEXP }
+  validates :friend_token,
+    uniqueness: true,
+    presence: true,
+    length: { is: 64 }
 end
