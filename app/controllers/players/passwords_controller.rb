@@ -9,7 +9,7 @@ module Players
 
     # @route POST /players/passwords (players_passwords)
     def create
-      @player = Player.find_by(email: player_params[:email])
+      @player = Player.find_by(email: player_params[:email]) if player_params[:email].present?
 
       if @player
         @player.update(reset_password_token: SecureRandom.urlsafe_base64(32)) if @player.reset_password_token.blank?

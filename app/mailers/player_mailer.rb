@@ -1,5 +1,5 @@
 class PlayerMailer < ApplicationMailer
-  default from: "jugadores@pl.1ma.dev <Jugadores Padel League>"
+  default from: "jugadores@pl.1ma.dev"
 
   def invite
     @invitee = params[:invitee]
