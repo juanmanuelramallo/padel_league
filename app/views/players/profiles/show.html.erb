@@ -2,10 +2,9 @@
   title: "Mi perfil",
   action_icon: "pencil-square",
   action_url: edit_players_profile_path do %>
-  <%= render "profile", player: @player %>
-
   <div class="flex flex-col gap-4 mt-4">
     <%= link_to "Ver stats", player_stats_path(@player), class: "btn btn-primary" %>
+    <%= render "profile", player: @player %>
     <%= link_to players_session_path, data: { turbo_method: :delete }, class: "btn btn-secondary" do %>
       <span>
         Cerrar sesión

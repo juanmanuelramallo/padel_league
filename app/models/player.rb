@@ -29,18 +29,10 @@ class Player < ApplicationRecord
   has_one :inviters_invite, class_name: "Invite", foreign_key: :invitee_id, dependent: :destroy
   has_one :inviter, through: :inviters_invite, source: :inviter, class_name: "Player"
 
-  has_many :friendships, -> { where.not(accepted_at: nil) },
+  has_many :friendships,
     foreign_key: :player_1_id,
     dependent: :destroy
   has_many :friends, through: :friendships, source: :player_2
-  has_many :pending_friendships, -> { where(accepted_at: nil) },
-    class_name: "Friendship",
-    foreign_key: :player_1_id,
-    dependent: :destroy
-  has_many :friendships_received,
-    class_name: "Friendship",
-    foreign_key: :player_2_id,
-    dependent: :destroy
 
   # Matches that this player has played
   has_many :match_players, dependent: :destroy

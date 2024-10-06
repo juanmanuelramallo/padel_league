@@ -1,6 +1,6 @@
 <% if flash[:notice] || flash[:alert] %>
   <div x-data="{ open: true }">
-    <div class="pointer-events-none fixed inset-x-0 top-0 p-5"
+    <div class="pointer-events-none fixed inset-x-0 top-0 p-5 z-50"
       x-show="open" x-transition>
       <div class="<%= flash[:notice].present? ? "bg-gray-900" : "bg-secondary-600" %> pointer-events-auto flex items-center justify-between gap-x-6 px-6 py-2.5 rounded-md">
         <p class="text-sm leading-6 text-white">

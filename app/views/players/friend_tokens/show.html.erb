@@ -1,0 +1,22 @@
+<%= render "application/main",
+  back_url: players_friendships_path,
+  title: "Agrega amigos" do %>
+  <div class="flex flex-col gap-4 mt-4">
+    <p>Comparte este link con tus amigos para que te agreguen:</p>
+
+    <div data-controller="clipboard"
+         class="p-2 border border-gray-300 rounded-md mb-2 overflow-hidden"
+         data-clipboard-success-content-value="Copiado!">
+      <input type="hidden" value="<%= @qr_url %>" data-clipboard-target="source" />
+      <button class="flex flex-row truncate break-keep" data-action="clipboard#copy" data-clipboard-target="button">
+        <%= inline_svg_tag "icons/link.svg", class: "h-6 w-6 mr-1" %>
+        <%= @qr_url %>
+      </button>
+    </div>
+
+    <p>O diles que escaneen este código QR:</p>
+    <div class="flex flex-row justify-center">
+      <%= raw @qr %>
+    </div>
+  </div>
+<% end %>

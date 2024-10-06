@@ -10,8 +10,11 @@ Rails.application.routes.draw do
   namespace :players do
     resource :session, only: [ :new, :create, :destroy ]
     resources :invitees, only: [ :new, :create, :edit, :update, :destroy ]
-    resources :friendships
+    resources :friendships, only: [ :index, :show ]
     resources :confirmations, only: [ :show ]
+    resource :friend_token, only: [ :show ] do
+      get :add, on: :collection
+    end
     resource :profile, only: [ :show, :edit, :update ]
   end
 
