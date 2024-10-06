@@ -3,7 +3,6 @@
 # Table name: friendships
 #
 #  id          :bigint           not null, primary key
-#  accepted_at :datetime
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  player_1_id :bigint           not null
@@ -11,7 +10,6 @@
 #
 # Indexes
 #
-#  index_friendships_on_accepted_at                  (accepted_at)
 #  index_friendships_on_player_1_id                  (player_1_id)
 #  index_friendships_on_player_1_id_and_player_2_id  (player_1_id,player_2_id) UNIQUE
 #  index_friendships_on_player_2_id                  (player_2_id)
