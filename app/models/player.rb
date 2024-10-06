@@ -48,4 +48,12 @@ class Player < ApplicationRecord
     uniqueness: true,
     presence: true,
     length: { is: 64 }
+
+  before_validation :generate_friend_token, on: :create
+
+  private
+
+  def generate_friend_token
+    self.friend_token ||= SecureRandom.alphanumeric(64)
+  end
 end

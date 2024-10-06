@@ -1,7 +1,6 @@
 class FriendshipResource < Madmin::Resource
   # Attributes
   attribute :id, form: false
-  attribute :accepted_at
   attribute :created_at, form: false
   attribute :updated_at, form: false
 

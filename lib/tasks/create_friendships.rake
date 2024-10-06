@@ -4,8 +4,8 @@ task create_friendships: :environment do
   other_players = Player.where.not(id: main_player.id)
 
   other_players.each do |player|
-    Friendship.create(player_1: main_player, player_2: player, accepted_at: Time.current)
-    Friendship.create(player_1: player, player_2: main_player, accepted_at: Time.current)
+    Friendship.create(player_1: main_player, player_2: player)
+    Friendship.create(player_1: player, player_2: main_player)
   end
 
   after_count = Friendship.count

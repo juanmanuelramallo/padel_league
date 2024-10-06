@@ -36,8 +36,8 @@ module Players
           inviter: current_player,
           invitee: @player
         ).invite.deliver_later if @player.email.present?
-        friendship = Friendship.create!(player_1: current_player, player_2: @player, accepted_at: Time.zone.now)
-        Friendship.create!(player_1: @player, player_2: current_player, accepted_at: Time.zone.now)
+        friendship = Friendship.create!(player_1: current_player, player_2: @player)
+        Friendship.create!(player_1: @player, player_2: current_player)
 
         redirect_to players_friendship_path(friendship), status: :see_other
       else

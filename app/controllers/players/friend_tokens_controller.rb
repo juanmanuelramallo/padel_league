@@ -1,5 +1,6 @@
 module Players
   class FriendTokensController < ApplicationController
+    # @route GET /players/friend_token (players_friend_token)
     def show
       @qr_url = add_players_friend_token_url(friend_token: current_player.friend_token)
       @qr = RQRCode::QRCode.new(@qr_url, size: 10, level: :m)
@@ -14,6 +15,7 @@ module Players
     end
 
     # Add a friend by friend token
+    # @route GET /players/friend_token/add (add_players_friend_token)
     def add
       player = Player.find_by(friend_token: friend_token_params[:friend_token])
 
