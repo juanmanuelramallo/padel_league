@@ -7,4 +7,10 @@ class PlayerMailer < ApplicationMailer
 
     mail(to: @invitee.email, subject: "Invitación a Padel League")
   end
+
+  def reset_password_instructions
+    @player = params[:player]
+
+    mail(to: @player.email, subject: "Instrucciones para restablecer tu contraseña")
+  end
 end

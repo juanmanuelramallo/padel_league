@@ -2,16 +2,17 @@
 #
 # Table name: players
 #
-#  id                 :bigint           not null, primary key
-#  confirmation_token :string
-#  confirmed_at       :datetime
-#  email              :string
-#  friend_token       :string
-#  name               :string           not null
-#  password_digest    :string
-#  phone              :string
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
+#  id                   :bigint           not null, primary key
+#  confirmation_token   :string
+#  confirmed_at         :datetime
+#  email                :string
+#  friend_token         :string
+#  name                 :string           not null
+#  password_digest      :string
+#  phone                :string
+#  reset_password_token :string
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #
 # Indexes
 #

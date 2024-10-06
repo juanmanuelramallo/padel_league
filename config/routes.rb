@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get :add, on: :collection
     end
     resource :profile, only: [ :show, :edit, :update ]
+    resources :passwords, only: [ :new, :create, :edit, :update ]
   end
 
   resources :players, only: [] do
